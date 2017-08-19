@@ -9,7 +9,7 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 (async () => {
 
-	const browser = await puppeteer.launch({ headless: true});
+	const browser = await puppeteer.launch({ headless: false});
 	const page = await browser.newPage();
 	page.setViewport(sharedConfig.viewport);
 
@@ -21,12 +21,12 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 			await page.injectFile(fileName);
 			console.info('Inject file: ' + fileName);
 		}
-		console.info('Injec file: ' + testCase.file);
+		console.info('Inject file: ' + testCase.file);
 		await page.injectFile(testCase.file);
 		// inject configuration into the window
 		await page.evaluate("window.$$$config = '" + JSON.stringify(testCase) + "'");
 
-		await page.evaluate(async () => { return run_tests(); });
+		await page.evaluate(async () => { return runTest(); });
 
 		const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
 			{ interval: 1000, timeout: sharedConfig.timeout });
@@ -34,7 +34,8 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 		// result presentation
 		var testResult = await page.evaluate('window.$$$result');
 		console.log((testResult.passed ? colors.green.underline('Result: Passed') : colors.red.underline('Result: Failed')));
+		console.dir(testResult);
 		//console.log(await page.evaluate('window.$$$result'));
 	}
-	browser.close();
+	// tmp: browser.close();
 })();
