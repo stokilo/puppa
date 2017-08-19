@@ -1,0 +1,19 @@
+{
+    "shared": {
+        "viewport": {
+            "width": 1280,
+            "height": 1024
+        },
+        "inject": [
+            "lib/jquery-3.2.1.min.js", "lib/runner.js"
+        ],
+        "timeout": 60000
+    },
+    "testCases": [
+        {
+            "url" : "https://google.com",
+            "file": "tests/test.js",
+            "test": "testGoogle"
+        }
+    ]
+}
