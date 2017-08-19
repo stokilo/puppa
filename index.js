@@ -8,30 +8,30 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 (async () => {
 
-	const browser = await puppeteer.launch({ headless: false});
+	const browser = await puppeteer.launch({ headless: true});
 	const page = await browser.newPage();
 	page.setViewport(sharedConfig.viewport);
 
 	for (testCase of testCases) {
-		console.info('goto page: ' + testCase.url);
+		console.info('Running: ' + testCase.file + ':' + testCase.test);
+		console.info('Open page: ' + testCase.url);
 		await page.goto(testCase.url);
 		for (fileName of sharedConfig.inject) {
 			await page.injectFile(fileName);
-			console.info('injected file: ' + fileName);
+			console.info('Inject file: ' + fileName);
 		}
-		console.info('injected file: ' + testCase.file);
+		console.info('Injec file: ' + testCase.file);
 		await page.injectFile(testCase.file);
 		// inject configuration into the window
 		await page.evaluate("window.$$$config = '" + JSON.stringify(testCase) + "'");
 
-		console.info('start testcase: ' + testCase.file)
-		await page.evaluate(async () => {return run_tests();});
+		await page.evaluate(async () => { return run_tests(); });
 
 		const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
 			{ interval: 1000, timeout: sharedConfig.timeout });
 		await watchDog;
-		console.info('Test: ' + testCase.file + ' : ' + testCase.test + ' result: ');
-		console.log(await page.evaluate('window.$$$result')); 
+		console.info('Finished: ' + testCase.file + ':' + testCase.test + ' result: ');
+		console.log(await page.evaluate('window.$$$result'));
 	}
-	//browser.close();
+	browser.close();
 })();

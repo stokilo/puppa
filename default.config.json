@@ -5,7 +5,7 @@
             "height": 1024
         },
         "inject": [
-            "lib/jquery-3.2.1.min.js"
+            "lib/jquery-3.2.1.min.js", "lib/puppa.js"
         ],
         "timeout": 60000
     }
