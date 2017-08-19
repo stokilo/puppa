@@ -1,0 +1,18 @@
+HIGH
+☐ Injected javascripts into the page won't survive page reload (i.e form submit)
+  Though initial target of this project was to test single page applications I would like to fix it.
+  
+NORMAL
+
+LOW
+
+DONE
+
+-----------------------------------
+☐ todo ☑ completed ☒ postponed
+
+☐ Item
+☐ Subitem
+☑ Completed item
+☒ Postponed item
+
