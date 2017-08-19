@@ -4,5 +4,10 @@ Functional tests framework based on node.js and google puppeteer:
 
 https://github.com/GoogleChrome/puppeteer
 
-Initial version features:
-- test runner integrated with jquery library for page navigation
+Run testcases defined in user.config.json
+```
+git clone https://github.com/stokilo/puppa
+cd puppa
+npm install
+node index.js
+```

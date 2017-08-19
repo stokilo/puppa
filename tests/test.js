@@ -1,8 +1,8 @@
 testGoogle = async function (config) {
-    // change to english
+    // change to english (not required)
     // await waitFor(() => elementByContent('a', 'English')).then(result => result[0].click());
-    // search for term 'test'
+    // enter term 'test'
     await waitFor("#lst-ib").then(result => result.val('test'));
-    // press search
-     await waitFor("#tsf").then(result => result[0].submit());
+    // search
+    await waitFor("#tsf").then(result => result[0].submit());
 }
