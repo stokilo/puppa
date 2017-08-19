@@ -41,5 +41,5 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 			console.log('        ' + colors.red.inverse(testResult.error));
 		}
 	}
-	// browser.close();
+	 browser.close();
 })();
