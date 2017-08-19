@@ -1,6 +1,5 @@
 HIGH
-☐ Injected javascripts into the page won't survive page reload (i.e form submit)
-  Though initial target of this project was to test single page applications I would like to fix it.
+☐ https://github.com/stokilo/puppa/issues/2
   
 NORMAL
 
