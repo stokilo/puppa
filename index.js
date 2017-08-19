@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const colors = require('colors/safe');
 
 const userConfig = JSON.parse(fs.readFileSync('user.config.json', 'utf8'));
 const defaultConfig = JSON.parse(fs.readFileSync('default.config.json', 'utf8'));
@@ -13,8 +14,8 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 	page.setViewport(sharedConfig.viewport);
 
 	for (testCase of testCases) {
-		console.info('Running: ' + testCase.file + ':' + testCase.test);
-		console.info('Open page: ' + testCase.url);
+		console.info(colors.blue('Running: ' + testCase.file + ':' + testCase.test));
+		console.info(colors.inverse('Open page: ' + testCase.url));
 		await page.goto(testCase.url);
 		for (fileName of sharedConfig.inject) {
 			await page.injectFile(fileName);
@@ -30,8 +31,10 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 		const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
 			{ interval: 1000, timeout: sharedConfig.timeout });
 		await watchDog;
-		console.info('Finished: ' + testCase.file + ':' + testCase.test + ' result: ');
-		console.log(await page.evaluate('window.$$$result'));
+		// result presentation
+		var testResult = await page.evaluate('window.$$$result');
+		console.log((testResult.passed ? colors.green.underline('Result: Passed') : colors.red.underline('Result: Failed')));
+		//console.log(await page.evaluate('window.$$$result'));
 	}
 	browser.close();
 })();
