@@ -33,9 +33,13 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 		await watchDog;
 		// result presentation
 		var testResult = await page.evaluate('window.$$$result');
-		console.log((testResult.passed ? colors.green.underline('Result: Passed') : colors.red.underline('Result: Failed')));
-		console.dir(testResult);
-		//console.log(await page.evaluate('window.$$$result'));
+		var resultMessage = testResult.passed ? 
+							colors.green.underline('Passed') :
+							colors.red.underline('Failed');
+		console.log('Result: ' + resultMessage);
+		if (!testResult.passed) {
+			console.log('        ' + colors.red.inverse(testResult.error));
+		}
 	}
-	// tmp: browser.close();
+	// browser.close();
 })();
