@@ -11,9 +11,9 @@
     },
     "testCases": [
         {
-            "url" : "https://github.com",
+            "url" : "https://google.com",
             "file": "tests/test.js",
-            "test": "testGithub"
+            "test": "testGoogle"
         }
     ]
 }
