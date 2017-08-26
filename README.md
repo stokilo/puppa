@@ -14,7 +14,7 @@ node index.js
 
 Example test, see 'tests' directory for more examples:
 
-```
+```javascript
 testGoogleSearch = async function (config) {
     // enter term 'test'
     await elem("#lst-ib", elem => elem.val('test'));
