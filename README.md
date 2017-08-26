@@ -17,16 +17,16 @@ Example test, see 'tests' directory for more examples:
 ```
 testGoogleSearch = async function (config) {
     // enter term 'test'
-    await waitFor("#lst-ib").then(result => result.val('test'));
+    await waitFor("#lst-ib").then(elem => elem.val('test'));
 
     // search
-    await waitFor("#tsf").then(result => result[0].submit());
+    await waitFor("#tsf").then(elem => elem[0].submit());
 
-    // wait for row elements with class 'r'
-    await waitFor(".r").then(r => $expect(r).to.have.items(10));
+    // wait for 10 rows with results
+    await waitFor(".r").then(rows => $expect(rows).to.have.items(10));
 
-    // assert text exists
-    await waitFor(elementByContent('span', 'Test - Wikipedia')).then(result => console.info(result));
+    // assert text content on the result list
+    await waitFor(elementByContent('span', 'Test - Wikipedia')).then(wiki => $expect(wiki).to.exist());
 }
 ```
 
