@@ -1,5 +1,5 @@
 HIGH
-☐ https://github.com/stokilo/puppa/issues/2
+☑ https://github.com/stokilo/puppa/issues/2
   
 NORMAL
 
