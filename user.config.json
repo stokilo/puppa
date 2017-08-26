@@ -10,9 +10,8 @@
         "timeout": 60000
     },
     "testCases": [
-     
         {
-            "url" : "https://google.com",
+            "url" : "https://github.com",
             "file": "tests/test.js",
             "test": "testGithub"
         }
