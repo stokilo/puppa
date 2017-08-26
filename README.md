@@ -22,3 +22,19 @@ testGoogleSearch = async function (config) {
     await waitFor("#tsf").then(result => result[0].submit());
 }
 ```
+
+Libraries included:
+
+JQUERY
+https://github.com/jquery/jquery
+
+Copyright JS Foundation and other contributors, https://js.foundation/
+
+https://github.com/jquery/jquery/blob/master/LICENSE.txt
+
+
+JQUERY-EXPECT 
+
+https://github.com/Codecademy/jquery-expect
+
+MIT License. Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
