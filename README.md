@@ -25,7 +25,13 @@ testGoogleSearch = async function (config) {
 
 Libraries included:
 
-JQUERY
+1. Puppeteer
+
+https://github.com/GoogleChrome/puppeteer
+
+https://github.com/GoogleChrome/puppeteer/blob/master/LICENSE
+
+2. JQUERY
 https://github.com/jquery/jquery
 
 Copyright JS Foundation and other contributors, https://js.foundation/
@@ -33,7 +39,7 @@ Copyright JS Foundation and other contributors, https://js.foundation/
 https://github.com/jquery/jquery/blob/master/LICENSE.txt
 
 
-JQUERY-EXPECT 
+3. JQUERY-EXPECT 
 
 https://github.com/Codecademy/jquery-expect
 
