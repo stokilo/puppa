@@ -18,29 +18,25 @@ Example test, see 'tests' directory for more examples:
 testGoogleSearch = async function (config) {
     // enter term 'test'
     await waitFor("#lst-ib").then(result => result.val('test'));
+
     // search
     await waitFor("#tsf").then(result => result[0].submit());
+
+    // wait for row elements with class 'r'
+    await waitFor(".r").then(r => $expect(r).to.have.items(10));
+
+    // assert text exists
+    await waitFor(elementByContent('span', 'Test - Wikipedia')).then(result => console.info(result));
 }
 ```
 
-Libraries included:
+###  Libraries included:
+* [Puppeteer] - https://github.com/GoogleChrome/puppeteer
+  https://github.com/GoogleChrome/puppeteer/blob/master/LICENSE
 
-1. Puppeteer
+* [JQuery] - https://github.com/jquery/jquery
+  Copyright JS Foundation and other contributors, https://js.foundation/
+  https://github.com/jquery/jquery/blob/master/LICENSE.txt
 
-https://github.com/GoogleChrome/puppeteer
-
-https://github.com/GoogleChrome/puppeteer/blob/master/LICENSE
-
-2. JQUERY
-https://github.com/jquery/jquery
-
-Copyright JS Foundation and other contributors, https://js.foundation/
-
-https://github.com/jquery/jquery/blob/master/LICENSE.txt
-
-
-3. JQUERY-EXPECT 
-
-https://github.com/Codecademy/jquery-expect
-
-MIT License. Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
+* [JQuery-Expect] - https://github.com/Codecademy/jquery-expect 
+  MIT License. Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
