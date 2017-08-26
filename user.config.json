@@ -5,14 +5,14 @@
             "height": 1024
         },
         "inject": [
-            "lib/jquery-3.2.1.min.js", "lib/puppa.js"
+           "lib/puppa.js"
         ],
         "timeout": 60000
     },
     "testCases": [
      
         {
-            "url" : "index.html",
+            "url" : "https://google.com",
             "file": "tests/test.js",
             "test": "testGithub"
         }

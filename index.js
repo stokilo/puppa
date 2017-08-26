@@ -21,7 +21,7 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 	for (testCase of testCases) {
 		console.info(colors.blue('Running: ' + testCase.file + ':' + testCase.test));
-		var contentHtmlFile = "file:///" + __dirname + '/index.html';
+		var contentHtmlFile = "file:///" + __dirname + '/index.html?url=' + encodeURIComponent(testCase.url);
 		console.info(colors.inverse('Open page: ' + contentHtmlFile));
 		await page.goto(contentHtmlFile);
 		for (fileName of sharedConfig.inject) {
