@@ -10,15 +10,16 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 (async () => {
 
-	// ZONK: headless chrome won't support extensions !
+	// note: headless chrome won't support extensions so tests against protected sites require headless:false
 	const browser = await puppeteer.launch({
 		 args: [
 				'--disable-web-security',
 				'--load-extension=lib' + path.sep+ 'ignore-headers', 
 				'--no-first-run'],
 		 headless: false,
-		 dumpio: true
-		});
+		 dumpio: false
+	});
+
 	const page = await browser.newPage();
 	page.setViewport(sharedConfig.viewport);
 
