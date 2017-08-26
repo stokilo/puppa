@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const colors = require('colors/safe');
+const path = require('path');
 
 const userConfig = JSON.parse(fs.readFileSync('user.config.json', 'utf8'));
 const defaultConfig = JSON.parse(fs.readFileSync('default.config.json', 'utf8'));
@@ -12,7 +13,7 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 	const browser = await puppeteer.launch({
 		 args: [
 				'--disable-web-security',
-				'--load-extension=ignore-headers', 
+				'--load-extension=lib' + path.sep+ 'ignore-headers', 
 				'--no-first-run'],
 		 headless: false
 		});
