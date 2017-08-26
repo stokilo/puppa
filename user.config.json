@@ -12,7 +12,7 @@
     "testCases": [
      
         {
-            "url" : "https://github.com",
+            "url" : "index.html",
             "file": "tests/test.js",
             "test": "testGithub"
         }

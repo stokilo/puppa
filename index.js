@@ -9,14 +9,21 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 (async () => {
 
-	const browser = await puppeteer.launch({ headless: false});
+	const browser = await puppeteer.launch({
+		 args: [
+				'--disable-web-security',
+				'--load-extension=ignore-headers', 
+				'--no-first-run'],
+		 headless: false
+		});
 	const page = await browser.newPage();
 	page.setViewport(sharedConfig.viewport);
 
 	for (testCase of testCases) {
 		console.info(colors.blue('Running: ' + testCase.file + ':' + testCase.test));
-		console.info(colors.inverse('Open page: ' + testCase.url));
-		await page.goto(testCase.url);
+		var contentHtmlFile = "file:///" + __dirname + '/index.html';
+		console.info(colors.inverse('Open page: ' + contentHtmlFile));
+		await page.goto(contentHtmlFile);
 		for (fileName of sharedConfig.inject) {
 			await page.injectFile(fileName);
 			console.info('Inject file: ' + fileName);
@@ -41,5 +48,5 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 			console.log('        ' + colors.red.inverse(testResult.error));
 		}
 	}
-	 browser.close();
+	// browser.close();
 })();

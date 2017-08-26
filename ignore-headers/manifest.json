@@ -1,0 +1,10 @@
+{
+    "background": {
+       "scripts": [ "background.js" ]
+    },
+    "description": "Drops X-Frame-Options HTTP response headers",
+    "manifest_version": 2,
+    "name": "Ignore X-Frame headers",
+    "permissions": [ "webRequest", "webRequestBlocking", "\u003Call_urls>" ],
+    "version": "1.0"
+ }
