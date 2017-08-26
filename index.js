@@ -10,12 +10,14 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 
 (async () => {
 
+	// ZONK: headless chrome won't support extensions !
 	const browser = await puppeteer.launch({
 		 args: [
 				'--disable-web-security',
 				'--load-extension=lib' + path.sep+ 'ignore-headers', 
 				'--no-first-run'],
-		 headless: false
+		 headless: false,
+		 dumpio: true
 		});
 	const page = await browser.newPage();
 	page.setViewport(sharedConfig.viewport);
@@ -23,7 +25,7 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 	for (testCase of testCases) {
 		console.info(colors.blue('Running: ' + testCase.file + ':' + testCase.test));
 		var contentHtmlFile = "file:///" + __dirname + '/index.html?url=' + encodeURIComponent(testCase.url);
-		console.info(colors.inverse('Open page: ' + contentHtmlFile));
+		console.info(colors.inverse('Open page: ' + testCase.url));
 		await page.goto(contentHtmlFile);
 		for (fileName of sharedConfig.inject) {
 			await page.injectFile(fileName);
@@ -49,5 +51,5 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 			console.log('        ' + colors.red.inverse(testResult.error));
 		}
 	}
-	// browser.close();
+	await browser.close();
 })();
