@@ -1,11 +1,11 @@
 HIGH
-☑ https://github.com/stokilo/puppa/issues/2
   
 NORMAL
-
+☐ https://github.com/stokilo/puppa/issues/3
 LOW
 
 DONE
+☑ https://github.com/stokilo/puppa/issues/2
 
 -----------------------------------
 ☐ todo ☑ completed ☒ postponed
