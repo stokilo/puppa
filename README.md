@@ -26,7 +26,10 @@ testGoogleSearch = async function (config) {
     await elem(".r", rows => $expect(rows).to.have.items(10));
 
     // assert text content on the result list
-    await felem(() => elementByContent('span', 'Test - Wikipedia'));
+    await felem(() => elementByContent('span', 'Test - Wikipedia'), wiki => wiki.click());
+
+    // check wikipedia heading text
+    await elem(".firstHeading", heading => $expect(heading).to.have.text('Test'));
 }
 ```
 
