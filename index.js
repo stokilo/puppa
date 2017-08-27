@@ -14,7 +14,7 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 	const browser = await puppeteer.launch({
 		 args: [
 				'--disable-web-security',
-				'--load-extension=lib' + path.sep+ 'ignore-headers', 
+				'--load-extension=' + __dirname + path.sep + 'lib' + path.sep+ 'ignore-headers', 
 				'--no-first-run'],
 		 headless: false,
 		 dumpio: false
