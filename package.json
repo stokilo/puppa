@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.1.2",
-    "puppeteer": "^0.9.0"
+    "puppeteer": "^0.10.1"
   }
 }
