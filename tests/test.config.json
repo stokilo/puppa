@@ -1,0 +1,27 @@
+{
+	
+	"profile": "dev.json",
+
+	"browserConfig": {
+        "viewport": {
+            "width": 1280,
+            "height": 1024
+        },
+        "timeout": 60000
+	},
+	
+	"globalInject": ["lib/mandatory.js"],
+	
+	"testSuite": {
+        "order": {
+            "tab1": [
+				"${google.com}.testGoogleSearch", 
+				"${google.com}.testGoogleSearch"
+			],
+			"tab2": [
+				"${graduateland.com}.testPdfTextContent", 
+				"${graduateland.com}.testPdfTextContent"
+			]
+		}
+    }
+}
