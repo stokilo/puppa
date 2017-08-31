@@ -4,7 +4,7 @@
             "width": 1280,
             "height": 1024
         },
-        "inject": [],
+        "inject": ["tests/expectations/pdf-expect.js"],
         "timeout": 60000
     },
     "testCases": [
@@ -12,6 +12,11 @@
             "url" : "https://google.com",
             "file": "tests/test.js",
             "test": "testGoogleSearch"
+        },
+        {
+            "url" : "https://graduateland.com/api/v2/users/jesper/cv",
+            "file": "tests/pdf-test.js",
+            "test": "testPdfTextContent"
         }
     ]
 }

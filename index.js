@@ -24,25 +24,31 @@ const testCases = 'testCases' in userConfig ? userConfig.testCases : defaultConf
 	page.setViewport(sharedConfig.viewport);
 
 	for (testCase of testCases) {
+
+		// open page with iframe and load page defined in test case
 		console.info(colors.blue('Running: ' + testCase.file + ':' + testCase.test));
 		var contentHtmlFile = "file:///" + __dirname + '/index.html?url=' + encodeURIComponent(testCase.url);
 		console.info(colors.inverse('Open page: ' + testCase.url));
 		await page.goto(contentHtmlFile);
+
+		// inject js that should persist navigation
 		for (fileName of sharedConfig.inject) {
 			await page.injectFile(fileName);
 			console.info('Inject file: ' + fileName);
 		}
 		console.info('Inject file: ' + testCase.file);
 		await page.injectFile(testCase.file);
+
 		// inject configuration into the window
 		await page.evaluate("window.$$$config = '" + JSON.stringify(testCase) + "'");
 
+		// run the test
 		await page.evaluate(async () => { return runTest(); });
-
 		const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
 			{ interval: 1000, timeout: sharedConfig.timeout });
 		await watchDog;
-		// result presentation
+
+		// output result
 		var testResult = await page.evaluate('window.$$$result');
 		var resultMessage = testResult.passed ? 
 							colors.green.underline('Passed') :

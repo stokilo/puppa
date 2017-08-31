@@ -43,3 +43,6 @@ testGoogleSearch = async function (config) {
 
 * [JQuery-Expect] - https://github.com/Codecademy/jquery-expect 
   MIT License. Copyright (c) 2012 Amjad Masad <amjad@codecademy.com> Ryzac, Inc.
+
+* [PDF.js] - https://mozilla.github.io/pdf.js/
+  https://github.com/mozilla/pdf.js/blob/master/LICENSE
