@@ -1,0 +1,11 @@
+{
+    "placeholders": {
+        "google.com": "https://google.com",
+        "graduateland.com": "https://graduateland.com/api/v2/users/jesper/cv"
+    },
+    
+    "variables": {
+        "username" : "test",
+        "password" : "test"
+    }
+}

@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "colors": "^1.1.2",
+    "minimist": "^1.2.0",
+    "parent-module": "^0.1.0",
     "puppeteer": "^0.10.1"
   }
 }

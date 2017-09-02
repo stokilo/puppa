@@ -1,6 +1,6 @@
 {
 	
-	"profile": "dev.json",
+	"profile": "dev-profile.json",
 
 	"browserConfig": {
         "viewport": {
@@ -10,7 +10,7 @@
         "timeout": 60000
 	},
 	
-	"globalInject": ["lib/mandatory.js"],
+	"globalInject": ["tests/google.js", "tests/pdf-test.js", "tests/expectations/pdf-expect.js"],
 	
 	"testSuite": {
         "order": {
