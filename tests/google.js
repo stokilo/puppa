@@ -4,7 +4,7 @@
 testGoogleSearch = async function (config) {
 
     // enter term 'test'
-    await elem("#lst-ib", elem => elem.val('test'));
+    await elem("#lst-ib", elem => elem.val('test'), {repeatMs: 200, timeout: 15000});
 
     // search
     await elem("#tsf", elem => elem[0].submit());
