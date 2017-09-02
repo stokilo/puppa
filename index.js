@@ -5,6 +5,7 @@ const path = require("path");
 const cli = require("./modules/cli.js");
 const configParser = require("./modules/config.js");
 const runner = require("./modules/runner.js");
+const Table = require('cli-table');
 
 // process user test run command 
 var commandResult = cli.processCommand(__dirname);
@@ -17,6 +18,12 @@ configParser.validateTestConfiguration(testConfiguration);
 // extract final configuration into variable to be used by test runner on multiple tabs
 var config = testConfiguration.configuration;
 const testCases = config.testSuite.order;
+
+
+// test case summary
+var summary = new Table({
+	head: ['Test name', 'Result', 'Error details']
+});
 
 (async () => {
 
@@ -32,9 +39,12 @@ const testCases = config.testSuite.order;
 
 	// run tests on each tab ...
 	var promises = [];
+	var batchResults = [];
 	for (var testCase in testCases) {
 		promises.push(
-			runner.runTests(__dirname, browser, testCases[testCase], config)
+			runner.runTests(__dirname, browser, testCases[testCase], config).then(
+				(batchResult) => batchResults= batchResults.concat(batchResult)
+			)
 		);
 	}
 
@@ -43,5 +53,16 @@ const testCases = config.testSuite.order;
 	if (config.browserConfig.closeBrowser) {
 		await browser.close();
 	}
-	console.info(colors.green("Finished."));
+
+	// create final test result summary
+	for (var j = 0; j < batchResults.length; j++) {
+		var singleResult = batchResults[j];
+		summary.push(
+			[singleResult.testName,
+			singleResult.passed ? colors.green("PASSED") : colors.red("FAILED"),
+			!singleResult.passed ? singleResult.error : ""
+			]
+		);
+	}
+	console.log(summary.toString());
 })();

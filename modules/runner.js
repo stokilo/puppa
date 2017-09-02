@@ -8,7 +8,7 @@ const colors = require("colors/safe");
 module.exports = {
 
     runTests: function (parentDir, browser, testCases, config) {
-
+        var batchResult = [];
         return (async () => {
             const page = await browser.newPage();
             page.setViewport(config.browserConfig.viewport);
@@ -25,7 +25,7 @@ module.exports = {
                 // inject js that should persist navigation
                 for (fileName of config.globalInject) {
                     await page.injectFile(fileName);
-                    console.info("Global file inject: " + fileName);
+                    //console.info("Global file inject: " + fileName);
                 }
 
                 // inject configuration into the window
@@ -44,13 +44,21 @@ module.exports = {
                 var resultMessage = testResult.passed ?
                     colors.green.underline("Passed") :
                     colors.red.underline("Failed");
-                console.log("Result: " + resultMessage);
+                console.info(colors.blue("Result: " + test.url + ":" + test.testName) + ": " + resultMessage);    
                 if (!testResult.passed) {
                     console.log("        " + colors.red.inverse(testResult.error));
                 }
-            }
-            
-        })();
 
+                // required for final reporting
+                batchResult.push({
+                    "testName" : test.testName,
+                    "passed" : testResult.passed,
+                    "error" : testResult.error
+                });
+            }
+           
+            // results from all tests running on given tab
+            return batchResult;
+        })();
     }
 };
