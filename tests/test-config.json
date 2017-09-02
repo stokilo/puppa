@@ -1,27 +1,27 @@
 {
-	
 	"profile": "dev-profile.json",
-
 	"browserConfig": {
-        "viewport": {
-            "width": 1280,
-            "height": 1024
-        },
-        "timeout": 60000
+		"viewport": {
+			"width": 1280,
+			"height": 1024
+		},
+		"timeout": 60000
 	},
-	
-	"globalInject": ["tests/google.js", "tests/pdf-test.js", "tests/expectations/pdf-expect.js"],
-	
+	"globalInject": [
+		"tests/google.js",
+		"tests/pdf-test.js",
+		"tests/expectations/pdf-expect.js"
+	],
 	"testSuite": {
-        "order": {
-            "tab1": [
-				"${google.com}.testGoogleSearch", 
+		"order": {
+			"tab1": [
+				"${google.com}.testGoogleSearch",
 				"${google.com}.testGoogleSearch"
 			],
 			"tab2": [
-				"${graduateland.com}.testPdfTextContent", 
+				"${graduateland.com}.testPdfTextContent",
 				"${graduateland.com}.testPdfTextContent"
 			]
 		}
-    }
+	}
 }
