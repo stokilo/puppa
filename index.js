@@ -18,21 +18,19 @@ const testCases = config.testSuite.order;
 (async () => {
 
 	// note: headless chrome won"t support extensions so tests against protected sites require headless:false
-	// TODO: headless, dumpio as part of the profile
 	const browser = await puppeteer.launch({
 		args: [
 			"--disable-web-security",
 			"--load-extension=" + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
 			"--no-first-run"],
-		headless: false,
-		dumpio: false
+		headless: config.browserConfig.headless,
+		dumpio: config.browserConfig.dumpio
 	});
 
 	const page = await browser.newPage();
 	page.setViewport(config.browserConfig.viewport);
 
 	for (var testCase in testCases) {
-
 		for (var i = 0; i < testCases[testCase].length; i++) {
 			var test = testCases[testCase][i];
 
@@ -49,7 +47,9 @@ const testCases = config.testSuite.order;
 			}
 
 			// inject configuration into the window
-			await page.evaluate("window.$$$config = '" + JSON.stringify({"test": test.testName}) + "'");
+			var testConfig = Object.assign({}, config.profileConfig);
+			testConfig.testName = test.testName; 
+			await page.evaluate("window.$$$config = '" + JSON.stringify(testConfig) + "'");
 
 			// run the test
 			await page.evaluate(async () => { return runTest(); });
@@ -68,5 +68,7 @@ const testCases = config.testSuite.order;
 			}
 		}
 	}
-	await browser.close();
+	if (config.browserConfig.closeBrowser) {
+		await browser.close();
+	}
 })();

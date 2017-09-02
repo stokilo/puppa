@@ -5,7 +5,10 @@
 			"width": 1280,
 			"height": 1024
 		},
-		"timeout": 60000
+		"timeout": 60000,
+		"headless": false,
+		"dumpio": false,
+		"closeBrowser": false
 	},
 	"globalInject": [
 		"tests/google.js",

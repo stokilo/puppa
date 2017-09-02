@@ -3,7 +3,7 @@
         "google.com": "https://google.com",
         "graduateland.com": "https://graduateland.com/api/v2/users/jesper/cv"
     },
-    "variables": {
+    "config": {
         "username": "test",
         "password": "test"
     }

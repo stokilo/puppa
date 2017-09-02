@@ -20,14 +20,18 @@ module.exports = {
                         "width": 1280,
                         "height": 1024
                     },
-                    "timeout": 50000
+                    "timeout": 50000,
+                    "headless": true,
+                    "dumpio": false,
+                    "closeBrowser": true
                 },
                 "globalInject": [],
                 "testSuite": {
                     "order": {
                         "tab1": []
                     }
-                }
+                },
+                "profileConfig": {}
             }
         };
 
@@ -59,6 +63,15 @@ module.exports = {
             }
             if ("timeout" in userConfiguration.browserConfig) {
                 testConfiguration.configuration.browserConfig.timeout = userConfiguration.browserConfig.timeout
+            }
+            if ("headless" in userConfiguration.browserConfig) {
+                testConfiguration.configuration.browserConfig.headless = userConfiguration.browserConfig.headless
+            }
+            if ("dumpio" in userConfiguration.browserConfig) {
+                testConfiguration.configuration.browserConfig.dumpio = userConfiguration.browserConfig.dumpio
+            }
+            if ("closeBrowser" in userConfiguration.browserConfig) {
+                testConfiguration.configuration.browserConfig.closeBrowser = userConfiguration.browserConfig.closeBrowser
             }
         }
 
@@ -99,6 +112,9 @@ module.exports = {
                 } 
             }
         } 
+
+        // 5. profile configuration
+        testConfiguration.configuration.profileConfig = profileConfiguration.config;
 
         testConfiguration.success = true;
         return testConfiguration;
