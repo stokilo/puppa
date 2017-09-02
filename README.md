@@ -4,6 +4,14 @@ Functional tests framework based on node.js and google puppeteer:
 
 https://github.com/GoogleChrome/puppeteer
 
+It allows to write test cases in pure javascript. Current version
+is integrated with jQuery and jQuery-Expect framework. All test steps are
+executed sequentially using async/await syntax. Framework supports parallel test execution
+on multiple browser tabs.
+
+Because tests are written in pure javascript there is no limit on what can be injected into tested page.
+
+
 Run testcases defined in user.config.json
 ```
 git clone https://github.com/stokilo/puppa
@@ -12,7 +20,7 @@ npm install
 node index.js tests
 ```
 
-Example test, see 'tests' directory for more examples:
+Example, see 'tests' directory for more examples:
 
 ```javascript
 testGoogleSearch = async function (config) {
@@ -30,6 +38,41 @@ testGoogleSearch = async function (config) {
 
     // check wikipedia heading text
     await elem(".firstHeading", heading => $expect(heading).to.have.text('Test'));
+}
+```
+
+Example test runner configuration that defines parallel test execution on 2 tabs.
+
+```javascript
+{
+	"profile": "dev-profile.json",
+	"browserConfig": {
+		"viewport": {
+			"width": 1280,
+			"height": 1024
+		},
+		"timeout": 60000,
+		"headless": false,
+		"dumpio": false,
+		"closeBrowser": true
+	},
+	"globalInject": [
+		"tests/google.js",
+		"tests/pdf-test.js",
+		"tests/expectations/pdf-expect.js"
+	],
+	"testSuite": {
+		"order": {
+			"tab1": [
+				"${google.com}.testGoogleSearch",
+				"${google.com}.testGoogleSearch"
+			],
+			"tab2": [
+				"${graduateland.com}.testPdfTextContent",
+				"${graduateland.com}.testPdfTextContent"
+			]
+		}
+	}
 }
 ```
 
