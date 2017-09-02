@@ -25,7 +25,7 @@ Example, see 'tests' directory for more examples:
 ```javascript
 testGoogleSearch = async function (config) {
     // enter term 'test', wait max 15 seconds for element, repeat selector search every 200 ms
-    await elem("#lst-ib", elem => elem.val('test'), {repeatMs: 200, timeout: 15000});
+    await elem("#lst-ib", elem => elem.val('test'), {pooling: 200, timeout: 15000});
 
     // search
     await elem("#tsf", elem => elem[0].submit());
