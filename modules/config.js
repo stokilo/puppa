@@ -39,40 +39,29 @@ module.exports = {
         const userConfiguration = JSON.parse(fs.readFileSync(commandParameters.testConfigPath, "utf8"));
 
         // 1. test profile
-        if (!"profile" in userConfiguration) {
-            testConfiguration.errorMessage = "Please defined property 'profile' that points to profile file.";
+        if (!"profile" in userConfiguration && !commandParameters.profile.length) {
+            testConfiguration.errorMessage = "Please define property 'profile' that points to profile file or define command line param like: --p=dev1";
             return testConfiguration;
         }
-        var profile = userConfiguration.profile;
+
+        // profile defined from command line parameter overwrites profile defined in test configuration
+        var profile = commandParameters.profile.length ? commandParameters.profile : userConfiguration.profile;
+        console.info("Current active profile: " + profile);
         var profilePath = commandParameters.testDirPath + path.sep + profile;
         if (!fs.existsSync(profilePath)) {
             testConfiguration.errorMessage = "Couldn't find a profile file: " + profilePath;
             return testConfiguration;
         }
         const profileConfiguration = JSON.parse(fs.readFileSync(profilePath, "utf8"));
-
+        if ("browserConfig" in userConfiguration)
+      
         // 2. browser configuration
         if ("browserConfig" in userConfiguration) {
-            if ("viewport" in userConfiguration.browserConfig) {
-                if ("width" in userConfiguration.browserConfig.viewport) {
-                    testConfiguration.configuration.browserConfig.viewport.width = userConfiguration.browserConfig.viewport.width
-                }
-                if ("height" in userConfiguration.browserConfig.viewport) {
-                    testConfiguration.configuration.browserConfig.viewport.height = userConfiguration.browserConfig.viewport.height
-                }
-            }
-            if ("timeout" in userConfiguration.browserConfig) {
-                testConfiguration.configuration.browserConfig.timeout = userConfiguration.browserConfig.timeout
-            }
-            if ("headless" in userConfiguration.browserConfig) {
-                testConfiguration.configuration.browserConfig.headless = userConfiguration.browserConfig.headless
-            }
-            if ("dumpio" in userConfiguration.browserConfig) {
-                testConfiguration.configuration.browserConfig.dumpio = userConfiguration.browserConfig.dumpio
-            }
-            if ("closeBrowser" in userConfiguration.browserConfig) {
-                testConfiguration.configuration.browserConfig.closeBrowser = userConfiguration.browserConfig.closeBrowser
-            }
+            Object.assign(testConfiguration.configuration.browserConfig, userConfiguration.browserConfig);
+        }
+        // browser configuration from profile overwrites both: initial configuration and test configuration from the file
+        if ("browserConfig" in profileConfiguration) {
+            Object.assign(testConfiguration.configuration.browserConfig, profileConfiguration.browserConfig);
         }
 
         // 3. global inject js

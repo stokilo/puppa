@@ -19,6 +19,8 @@ module.exports = {
             "success": false,
             "errorMessage": "",
 
+            "profile": "",
+
             "rootDir" : "",
             "testDirName": "",
             "testDirPath": "",
@@ -30,6 +32,11 @@ module.exports = {
         if (!"_" in argv || !argv._.length) {
             result.errorMessage = "Please provide path to directory that contains test files i.e. node index.js tests";
             return result;
+        }
+
+        // define profile, format is like following: node index.js tests --p=dev1
+        if ("p" in argv && argv.p.length) {
+            result.profile = argv.p + ".json";
         }
 
         result.rootDir = rootDir;

@@ -12,7 +12,7 @@ on multiple browser tabs.
 Because tests are written in pure javascript there is no limit on what can be injected into tested page.
 
 
-Run test cases defined from tests directory (see test-config.json and dev-profile.json)
+Run test cases defined in the tests directory (see test-config.json and dev-profile.json)
 ```
 git clone https://github.com/stokilo/puppa
 cd puppa
