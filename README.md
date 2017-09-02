@@ -12,6 +12,9 @@ on multiple browser tabs.
 Because tests are written in pure javascript there is no limit on what can be injected into tested page.
 
 
+![alt text](https://raw.githubusercontent.com/stokilo/puppa/master/static/preview.gif)
+
+
 Run test cases defined in the tests directory (see test-config.json and dev-profile.json)
 ```
 git clone https://github.com/stokilo/puppa
