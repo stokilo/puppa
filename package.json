@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Slawomir Stec <slawomirstec@gazeta.pl>",
   "license": "ISC",
   "dependencies": {
     "cli-table": "^0.3.1",
