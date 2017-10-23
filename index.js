@@ -7,14 +7,14 @@ const configParser = require("./modules/config.js");
 const runner = require("./modules/runner.js");
 const Table = require('cli-table');
 
-module.exports.run = function () {
+module.exports.run = function (rootDir) {
 
 	// process user test run command 
-	var commandResult = cli.processCommand(__dirname);
+	var commandResult = cli.processCommand(rootDir);
 	cli.validateProcessCommandResult(commandResult);
 
 	// load configuration for defined test suite and merge with the selected user profile settings
-	var testConfiguration = configParser.parseConfiguration(__dirname, commandResult);
+	var testConfiguration = configParser.parseConfiguration(rootDir, commandResult);
 	configParser.validateTestConfiguration(testConfiguration);
 
 	// extract final configuration into variable to be used by test runner on multiple tabs
@@ -33,7 +33,7 @@ module.exports.run = function () {
 		const browser = await puppeteer.launch({
 			args: [
 				"--disable-web-security",
-				"--load-extension=" + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
+				"--load-extension=" + rootDir + path.sep + "lib" + path.sep + "ignore-headers",
 				"--no-first-run"],
 			headless: config.browserConfig.headless,
 			dumpio: config.browserConfig.dumpio
@@ -44,7 +44,7 @@ module.exports.run = function () {
 		var batchResults = [];
 		for (var testCase in testCases) {
 			promises.push(
-				runner.runTests(__dirname, browser, testCases[testCase], config).then(
+				runner.runTests(rootDir, browser, testCases[testCase], config).then(
 					(batchResult) => batchResults = batchResults.concat(batchResult)
 				)
 			);
