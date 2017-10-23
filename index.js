@@ -44,7 +44,7 @@ module.exports.run = function (rootDir) {
 		var batchResults = [];
 		for (var testCase in testCases) {
 			promises.push(
-				runner.runTests(rootDir, browser, testCases[testCase], config).then(
+				runner.runTests(__dirname, browser, testCases[testCase], config).then(
 					(batchResult) => batchResults = batchResults.concat(batchResult)
 				)
 			);
