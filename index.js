@@ -70,3 +70,5 @@ module.exports.run = function (rootDir) {
 	})();
 
 };
+
+module.exports.run(__dirname);
