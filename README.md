@@ -79,6 +79,29 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 }
 ```
 
+You can create your own test suite and use puppa npm module to run them.
+Run test cases using npm module:
+```
+mkdir mytests
+cd mytests
+npm install puppa
+```
+
+Copy https://github.com/stokilo/puppa/tests/  into mytests/tests
+Create mytests/index.js
+
+```javascript
+const puppa = require("puppa");
+puppa.run(__dirname)
+```
+
+Run test cases using npm module
+```
+node index.js tests
+```
+
+
+
 ###  Libraries included:
 * [Puppeteer] - https://github.com/GoogleChrome/puppeteer
   https://github.com/GoogleChrome/puppeteer/blob/master/LICENSE
