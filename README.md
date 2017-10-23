@@ -20,7 +20,7 @@ Run test cases defined in the tests directory (see test-config.json and dev-prof
 git clone https://github.com/stokilo/puppa
 cd puppa
 npm install
-node index.js tests
+node run.js tests
 ```
 
 Example, see 'tests' directory for more examples:
@@ -88,7 +88,7 @@ npm install puppa
 ```
 
 Copy https://github.com/stokilo/puppa/tests/  into mytests/tests
-Create mytests/index.js
+Create mytests/run.js
 
 ```javascript
 const puppa = require("puppa");
@@ -97,7 +97,7 @@ puppa.run(__dirname)
 
 Run test cases using npm module
 ```
-node index.js tests
+node run.js tests
 ```
 
 
