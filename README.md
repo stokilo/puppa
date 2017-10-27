@@ -49,6 +49,9 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 ```javascript
 {
 	"profile": "dev-profile.json",
+	"chromeConfig":{
+		"flags": "--window-size=1280,720"
+	},
 	"browserConfig": {
 		"viewport": {
 			"width": 1280,
