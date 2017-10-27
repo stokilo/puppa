@@ -15,6 +15,9 @@ module.exports = {
             "errorMessage" : "",
             
             "configuration": {
+                "chromeConfig":{
+                    "flags": "--window-size=1280,720"
+                },
                 "browserConfig": {
                     "viewport": {
                         "width": 1280,

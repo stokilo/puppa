@@ -32,6 +32,7 @@ module.exports.run = function (rootDir) {
 		// note: headless chrome won"t support extensions so tests against protected sites require headless:false
 		const browser = await puppeteer.launch({
 			args: [
+				config.chromeConfig.flags,
 				"--disable-web-security",
 				"--load-extension=" + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
 				"--no-first-run"],
