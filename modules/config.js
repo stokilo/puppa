@@ -56,23 +56,27 @@ module.exports = {
             return testConfiguration;
         }
         const profileConfiguration = JSON.parse(fs.readFileSync(profilePath, "utf8"));
-        if ("browserConfig" in userConfiguration)
       
-        // 2. browser configuration
+        // 2. chrome configuration
+        if ("chromeConfig" in userConfiguration) {
+            Object.assign(testConfiguration.configuration.chromeConfig, userConfiguration.chromeConfig);
+        }
+
+        // 3. browser configuration
         if ("browserConfig" in userConfiguration) {
             Object.assign(testConfiguration.configuration.browserConfig, userConfiguration.browserConfig);
         }
-        // browser configuration from profile overwrites both: initial configuration and test configuration from the file
+        // 4. browser configuration from profile overwrites both: initial configuration and test configuration from the file
         if ("browserConfig" in profileConfiguration) {
             Object.assign(testConfiguration.configuration.browserConfig, profileConfiguration.browserConfig);
         }
 
-        // 3. global inject js
+        // 5. global inject js
         if ("globalInject" in userConfiguration) {
             testConfiguration.configuration.globalInject = testConfiguration.configuration.globalInject.concat(userConfiguration.globalInject);
         }
 
-        // 4. test suite
+        // 6. test suite
         if ("testSuite" in userConfiguration) {
             if ("order" in userConfiguration.testSuite) {
                 var order = userConfiguration.testSuite.order;
@@ -105,7 +109,7 @@ module.exports = {
             }
         } 
 
-        // 5. profile configuration
+        // 7. profile configuration
         testConfiguration.configuration.profileConfig = profileConfiguration.config;
 
         testConfiguration.success = true;
