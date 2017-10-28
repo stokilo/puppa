@@ -1,4 +1,4 @@
-##### Released API: [v1.0.11](https://github.com/stokilo/puppa/doc/api.md)
+##### Released API: [v1.0.11](https://github.com/stokilo/puppa/blob/master/doc/api.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -17,13 +17,13 @@
 Puppa is a library that combines various javascript libraries to run set of test cases in a chrome browser. 
 
 ###### How it works after running: 'node run.js tests' ?
-- 1. Puppa read test-config.json from tests directory and merge it with configured profile file (i.e. def-profile.json)
+- 1. Load test-config.json from tests directory and merge it with configured profile file (i.e. dev-profile.json)
 - 2. Launch chrome instance configured as described at step 1
 - 3. Each test is assigned into a tab. All tabs are open at same time
 - 4. Inject iframe into each tab. Content of each iframe is a page configured for a test.
 - 5. Enable extension that allows to ignore headers blocking iframe embedding: 'x-frame-options', 'content-security-policy', 'x-content-type-options' (works only in non-headless mode)
 - 6. Execute list of javascript test function in context of each tab as described in test cases (step 1)
-- 7. Product test result output to stdout.
+- 7. Produce test result output to stdout.
 
 ### Description of test config
 
@@ -66,7 +66,7 @@ File test-config.json contains description of test environment and test suite. E
 }
 ```
 
-- `profile` <[string]> name of the profile file that will be used to used for test run
+- `profile` <[string]> name of the profile file that will be used to used for test run, content of sampel profile:
 ```js
 {
     "placeholders": {
@@ -79,7 +79,7 @@ File test-config.json contains description of test environment and test suite. E
     }
 }
 ```
-  - `placeholder`<[object]> placeholders for test-config.json.testSuite element. Profile is defined in separate file because you can have multiple profiles activated on test runtime. To switch profile from command line you you use argument: `'--p=other-dev-profile'` (note lack of json extension). Think about profile as settings for each member of your team. Each developer has different machine settings like IP or credentials to
+  - `placeholder`<[object]> placeholders for test-config.json.testSuite element. Profile is defined in a separate file because you can choose active profile on test runtime. To switch profile from command line you can use argument: `'--p=other-dev-profile'` (note lack of json extension). Think about profile as settings for each member of your team. Each developer has different machine settings like IP or credentials to
   access the system. Profile should be used to separate such data from common test configuration.
     - `<key><value>` map of all placeholders where key if placeholder name and value is value to use
   - `config` <[object]> object with configuration that will be passed to each test. Good place for credentials and test suite settings.
@@ -93,14 +93,14 @@ File test-config.json contains description of test environment and test suite. E
   - `timeout`<[number]> timeout in ms if puppeteer browser won't launch
   - `headless`<[boolean]> should puppeteer browser run in headless mode?
   - `dumpio`<[boolean]> should puppeteer browser pump out/err into your stdout/stderr? 
-  - `closeBrowser`<[boolean]> should puppa close puppeteer browser after test run ? It does not matter if tests failed or passed. If you set this to false you can 
-  and combine with headless = false then you have an option to inspect open pages using dev tools (see console logs, network activity etc).
-  - `devtools`<[boolean]> should puppeteer browser pump out/err into your stdout/stderr? 
+  - `closeBrowser`<[boolean]> should puppa close puppeteer browser after test run ? It does not matter if tests failed or passed. If you set this to false 
+  and combine with headless = false then you have an option to inspect open pages using dev tools (see console log, network activity etc).
+  - `devtools`<[boolean]> should dev tools should be open on test run? 
 - `globalInject`<[array]> array of javascript files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated
 with scripts on runtime. Reason why scripts must be defined is to give developer flexibility to resolve library conflicts.
 - `testSuite` <[object]> list of test grouped on tabs
   - `order` <[object]> order of tabs on the browser
-    - `map<[string],[array]>` <[string],[array]> map of tabs and tests assigned to them. Each test is definde in format
+    - `map<[string],[array]>` <[string],[array]> map of tabs and tests assigned to them. Each test is defined in format
     `url.testFunctionName` i.e. `${google.com}.testGoogleSearch`. Support for placeholder from profile is implemented, in this example  `${google.com}.testGoogleSearch` will be resolved to `https://google.com.testGoogleSearch`
  
 
@@ -119,7 +119,7 @@ to either test found elements or perform any jQuery function on the found elemen
 
 - `jQuerySelector` <[string]> jQuery selector as string 
 - `jQuerySelectorHandler` <[function]> handler of jQuery selector query, function takes as argument result of jQuery query
-- `options` <[object]> optional options
+- `options` <[object]> 
   - `pooling` <[number]> selector query pooling interval in ms, default 500 ms
   - `timeout` <[number]> timeout for single selector query in ms, default 5000 ms
   - `retry` <[object]> repeat search for jQuerySelector 
@@ -156,7 +156,7 @@ Puppa contains some pre defined custom functions described below.
 
 - `fQuery` <[function]> any custom javascript function that perform query on the test page and return result
 - `fQueryHandle` <[function]> handler of fQuery result, function takes as argument value returned from fQuery
-- `options` <[object]> optional options
+- `options` <[object]> 
   - `pooling` <[number]> selector query pooling interval in ms, default 500 ms
   - `timeout` <[number]> timeout for single selector query in ms, default 5000 ms
   - `retry` <[object]> repeat search for jQuerySelector 

@@ -1,4 +1,4 @@
-##### Released API: [v1.0.11](https://github.com/stokilo/puppa/doc/api.md)
+##### Released API: [v1.0.11](https://github.com/stokilo/puppa/blob/master/doc/api.md)
 
 # puppa
 
