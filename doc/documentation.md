@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.11](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.12](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 # Puppa API 
 
 ##### Table of Contents
