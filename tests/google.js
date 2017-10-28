@@ -17,5 +17,8 @@ testGoogleSearch = async function (config) {
 
     // check wikipedia heading text
     await elem(".firstHeading", heading => $expect(heading).to.have.text('Test'));
+
+    // ensure there is a link with text that starts with string: Medical Test
+    await felem(() => elementByRegex('a', new RegExp('^Medical Test', 'i')), wiki => wiki.click());
 }
 

@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.12](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.13](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -9,7 +9,8 @@
   * [puppa.elem()](#puppaelem)
   * [puppa.felem()](#puppafelem)
     * [puppa.elementByContent()](#puppaelementbycontent)
-    * [puppa.expectPdfContent()](#puppaexpectpdfcontent)
+    * [puppa.elementByRegex()](#puppaelementbyregex)
+    * [puppa.expectPdfContent()](#puppaexpectpdfcontent)    
     
 
 ### Overview
@@ -203,3 +204,18 @@ testPdfTextContent = async function (config) {
 
 ```
 
+####  puppa.elementByRegex()
+##### puppa.elementByRegex(tagName, regex)
+
+Search elements with given tag name and text content that is matched by provided regular expression.
+
+- `tagName` <[string]> html tag name for content search
+- `regex` <[RegExp]> regular expression to match element text content
+
+Example: 
+```js
+testGoogleSearch = async function (config) {
+    // ensure there is a link with text that starts with string: Medical Test
+    await felem(() => elementByRegex('a', new RegExp('^Medical Test', 'i')), wiki => wiki.click());
+}
+```
