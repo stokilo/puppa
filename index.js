@@ -37,7 +37,15 @@ module.exports.run = function (rootDir) {
 				"--load-extension=" + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
 				"--no-first-run"],
 			headless: config.browserConfig.headless,
-			dumpio: config.browserConfig.dumpio
+			dumpio: config.browserConfig.dumpio,
+			ignoreHTTPSErrors: config.browserConfig.ignoreHTTPSErrors,
+			executablePath: config.browserConfig.executablePath,
+			slowMo: config.browserConfig.slowMo,
+			handleSIGINT: config.browserConfig.handleSIGINT,
+			timeout: config.browserConfig.timeout,
+			userDataDir: config.browserConfig.userDataDir,
+			env: config.browserConfig.env,
+			devtools: config.browserConfig.devtools
 		});
 
 		// run tests on each tab ...

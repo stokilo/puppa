@@ -11,7 +11,8 @@
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": true
+		"closeBrowser": true,
+		"devtools": false
 	},
 	"globalInject": [
 		"tests/google.js",
