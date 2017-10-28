@@ -1,3 +1,5 @@
+##### Released API: [v1.0.11](https://github.com/stokilo/puppa/doc/api.md)
+
 # puppa
 
 Functional tests framework based on node.js and google puppeteer:
