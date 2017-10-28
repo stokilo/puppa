@@ -2,28 +2,24 @@
 
 # puppa
 
-Functional tests framework based on node.js and google puppeteer:
-
+Javascript test framework based on node.js and google puppeteer:
 https://github.com/GoogleChrome/puppeteer
 
-It allows to write test cases in pure javascript. Current version
-is integrated with jQuery and jQuery-Expect framework. All test steps are
-executed sequentially using async/await syntax. Framework supports parallel test execution
-on multiple browser tabs.
-
-Because tests are written in pure javascript there is no limit on what can be injected into tested page.
-
+Run two tests on separate tabs:
 
 ![alt text](https://raw.githubusercontent.com/stokilo/puppa/master/static/preview.gif)
 
-
-Run test cases defined in the tests directory (see test-config.json and dev-profile.json)
+Quick start example tests:
 ```
 git clone https://github.com/stokilo/puppa
 cd puppa
 npm install
 node run.js tests
 ```
+
+Integrated with jQuery and jQuery-Expect framework. All test steps are
+executed sequentially using async/await syntax. Framework supports parallel test execution
+on multiple browser tabs.
 
 Example, see 'tests' directory for more examples:
 
