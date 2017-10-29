@@ -44,19 +44,19 @@ module.exports = {
                 var resultMessage = testResult.passed ?
                     colors.green.underline("Passed") :
                     colors.red.underline("Failed");
-                console.info(colors.blue("Result: " + test.url + ":" + test.testName) + ": " + resultMessage);    
+                console.info(colors.blue("Result: " + test.url + ":" + test.testName) + ": " + resultMessage);
                 if (!testResult.passed) {
                     console.log("        " + colors.red.inverse(testResult.error));
                 }
 
                 // required for final reporting
                 batchResult.push({
-                    "testName" : test.testName,
-                    "passed" : testResult.passed,
-                    "error" : testResult.error
+                    "testName": test.testName,
+                    "passed": testResult.passed,
+                    "error": testResult.error
                 });
             }
-           
+
             // results from all tests running on given tab
             return batchResult;
         })();

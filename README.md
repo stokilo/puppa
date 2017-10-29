@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.14](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.15](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 
 # puppa
 
@@ -72,13 +72,23 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 		"tests/expectations/pdf-expect.js"
 	],
 	"testSuite": {
-		"order": {
+
+		"suite1": {
 			"tab1": [
 				"${google.com}.testGoogleSearch",
 				"${google.com}.testGoogleSearch"
 			],
 			"tab2": [
 				"${graduateland.com}.testPdfTextContent",
+				"${graduateland.com}.testPdfTextContent"
+			]
+		},
+
+		"suite2": {
+			"tab1": [
+				"${google.com}.testGoogleSearch"
+			],
+			"tab2": [
 				"${graduateland.com}.testPdfTextContent"
 			]
 		}

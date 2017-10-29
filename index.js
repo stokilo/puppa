@@ -19,8 +19,6 @@ module.exports.run = function (rootDir) {
 
 	// extract final configuration into variable to be used by test runner on multiple tabs
 	var config = testConfiguration.configuration;
-	const testCases = config.testSuite.order;
-
 
 	// test case summary
 	var summary = new Table({
@@ -51,16 +49,22 @@ module.exports.run = function (rootDir) {
 		// run tests on each tab ...
 		var promises = [];
 		var batchResults = [];
-		for (var testCase in testCases) {
-			promises.push(
-				runner.runTests(__dirname, browser, testCases[testCase], config).then(
-					(batchResult) => batchResults = batchResults.concat(batchResult)
-				)
-			);
+		const suites = config.testSuite;
+
+		for (var suite in suites) {
+			var tabs = suites[suite];
+			for (var tab in tabs) {
+				promises.push(
+					runner.runTests(__dirname, browser, suites[suite][tab], config).then(
+						(batchResult) => batchResults = batchResults.concat(batchResult)
+					)
+				);
+			}
+
+			// ... and wait until all finish execution
+			await Promise.all(promises);
 		}
 
-		// ... and wait until all finish execution
-		await Promise.all(promises);
 		if (config.browserConfig.closeBrowser) {
 			await browser.close();
 		}

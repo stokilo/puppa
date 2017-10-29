@@ -11,11 +11,11 @@ module.exports = {
      */
     parseConfiguration: function (parentDir, commandParameters) {
         var testConfiguration = {
-            "success" : false,
-            "errorMessage" : "",
-            
+            "success": false,
+            "errorMessage": "",
+
             "configuration": {
-                "chromeConfig":{
+                "chromeConfig": {
                     "flags": "--window-size=1280,720"
                 },
                 "browserConfig": {
@@ -30,9 +30,6 @@ module.exports = {
                 },
                 "globalInject": [],
                 "testSuite": {
-                    "order": {
-                        "tab1": []
-                    }
                 },
                 "profileConfig": {}
             }
@@ -56,7 +53,7 @@ module.exports = {
             return testConfiguration;
         }
         const profileConfiguration = JSON.parse(fs.readFileSync(profilePath, "utf8"));
-      
+
         // 2. chrome configuration
         if ("chromeConfig" in userConfiguration) {
             Object.assign(testConfiguration.configuration.chromeConfig, userConfiguration.chromeConfig);
@@ -78,14 +75,13 @@ module.exports = {
 
         // 6. test suite
         if ("testSuite" in userConfiguration) {
-            if ("order" in userConfiguration.testSuite) {
-                var order = userConfiguration.testSuite.order;
-                for (var tab in order) {
-                    if (order.hasOwnProperty(tab)) {
-                        //testConfiguration.configuration.testSuite.order[tab] = userConfiguration.testSuite.order[tab];
-                       var userTab = userConfiguration.testSuite.order[tab];
-                       var finalUserTab = [];
-                       for (var i = 0; i < userTab.length; i++) {
+            for (var suite in userConfiguration.testSuite) {
+                var tabs = userConfiguration.testSuite[suite];
+                for (var tab in tabs) {
+                    if (userConfiguration.testSuite[suite].hasOwnProperty(tab)) {
+                        var userTab = tabs[tab];
+                        var finalUserTab = [];
+                        for (var i = 0; i < userTab.length; i++) {
                             //perform substitution 
                             for (var placeholder in profileConfiguration.placeholders) {
                                 if (profileConfiguration.placeholders.hasOwnProperty(placeholder)) {
@@ -95,19 +91,27 @@ module.exports = {
                             //perform splitting test function name from url
                             //format is url.testFunctionName
                             var split = userTab[i].split(".");;
-                            var testName = split[split.length-1];
+                            var testName = split[split.length - 1];
                             var testUrl = userTab[i].replace(new RegExp("." + testName + '$'), '');
 
                             finalUserTab[i] = {
-                                "url" : testUrl,
+                                "url": testUrl,
                                 "testName": testName
                             }
-                       }
-                       testConfiguration.configuration.testSuite.order[tab] = (finalUserTab);
+                        }
+                        if(!(suite in testConfiguration.configuration.testSuite)) {
+                            testConfiguration.configuration.testSuite[suite] = {};                            
+                        }
+                        if(!(tab in testConfiguration.configuration.testSuite[suite])) {
+                            testConfiguration.configuration.testSuite[suite][tab] = [];
+                        }
+                        
+
+                        testConfiguration.configuration.testSuite[suite][tab] = (finalUserTab);
                     }
-                } 
+                }
             }
-        } 
+        }
 
         // 7. profile configuration
         testConfiguration.configuration.profileConfig = profileConfiguration.config;
@@ -119,7 +123,7 @@ module.exports = {
     /**
      * Terminate the process if test configuration is not correct and output error message to stdout.
      */
-    validateTestConfiguration: function(testConfiguration) {
+    validateTestConfiguration: function (testConfiguration) {
         if (!testConfiguration.success) {
             console.info(testConfiguration.errorMessage);
             process.exit(1);

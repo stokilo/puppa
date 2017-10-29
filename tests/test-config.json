@@ -20,13 +20,23 @@
 		"tests/expectations/pdf-expect.js"
 	],
 	"testSuite": {
-		"order": {
+
+		"suite1": {
 			"tab1": [
 				"${google.com}.testGoogleSearch",
 				"${google.com}.testGoogleSearch"
 			],
 			"tab2": [
 				"${graduateland.com}.testPdfTextContent",
+				"${graduateland.com}.testPdfTextContent"
+			]
+		},
+
+		"suite2": {
+			"tab1": [
+				"${google.com}.testGoogleSearch"
+			],
+			"tab2": [
 				"${graduateland.com}.testPdfTextContent"
 			]
 		}
