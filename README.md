@@ -5,7 +5,10 @@
 Javascript test framework based on node.js and google puppeteer:
 https://github.com/GoogleChrome/puppeteer
 
-Require node with **Async/Await Support** check version with latest features here:
+<span style="color:red">Requirements :</span>
+
+Node with **Async/Await Support**, check version with latest features here:
+
 https://nodejs.org/
 
 Run two tests on separate tabs:
