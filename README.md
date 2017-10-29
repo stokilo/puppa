@@ -1,9 +1,12 @@
-##### Documentation for version: [v1.0.13](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.14](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 
 # puppa
 
 Javascript test framework based on node.js and google puppeteer:
 https://github.com/GoogleChrome/puppeteer
+
+Require node with **Async/Await Support** check version with latest features here:
+https://nodejs.org/
 
 Run two tests on separate tabs:
 
