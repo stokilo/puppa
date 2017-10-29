@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.16](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.17](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 
 # puppa
 
@@ -112,12 +112,15 @@ const puppa = require("puppa");
 puppa.run(__dirname)
 ```
 
-Run test cases using npm module
+Run all test cases using npm module
 ```
 node run.js tests
 ```
 
-
+or run test cases grouped in test suite with name 'devSuite'
+```
+node run.js tests -s=devSuite
+```
 
 ###  Libraries included:
 * [Puppeteer] - https://github.com/GoogleChrome/puppeteer

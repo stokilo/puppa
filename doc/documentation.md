@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.16](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.17](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -110,10 +110,9 @@ File test-config.json contains description of test environment and test suite. E
 - `globalInject`<[array]> array of javascript files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated
 with scripts on runtime. Reason why scripts must be defined is to give developer flexibility to resolve library conflicts.
 - `testSuite` <[object]> list of test suites, each suite is executed sequentially
-  - `suite1` <[object]> groups of test that will run in pararell on defined tabs
+  - `suite1` <[object]> groups of test that will run in pararell on defined tabs. To run only single test suite you can pass parameter to runner as following `node run.js tests -s=suiteName`
     - `any name` <[object]> object with tabs and tests assigned to them. Each test is defined in format
-    `url.testFunctionName` i.e. `${google.com}.testGoogleSearch`. Support for placeholder from profile is implemented, in this example  `${google.com}.testGoogleSearch` will be resolved to `https://google.com.testGoogleSearch`. Tab names must be unique, they should be valid 
-    javascript object key.
+    `url.testFunctionName` i.e. `${google.com}.testGoogleSearch`. Support for placeholder from profile is implemented, in this example  `${google.com}.testGoogleSearch` will be resolved to `https://google.com.testGoogleSearch`. Tab names must be unique, they should be valid javascript object key.
  
 
  

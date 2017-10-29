@@ -20,6 +20,7 @@ module.exports = {
             "errorMessage": "",
 
             "profile": "",
+            "suite": "",
 
             "rootDir" : "",
             "testDirName": "",
@@ -37,6 +38,11 @@ module.exports = {
         // define profile, format is like following: node index.js tests --p=dev1
         if ("p" in argv && argv.p.length) {
             result.profile = argv.p + ".json";
+        }
+
+        // define test suite to run, to run tests only from 'dev' suite: node index.js tests --s=dev
+        if ("s" in argv && argv.s.length) {
+            result.suite = argv.s;
         }
 
         result.rootDir = rootDir;

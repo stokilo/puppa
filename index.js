@@ -25,7 +25,7 @@ module.exports.run = function (rootDir) {
 		head: ['Test name', 'Result', 'Error details']
 	});
 
-	(async () => {
+	(async (commandResult) => {
 
 		// note: headless chrome won"t support extensions so tests against protected sites require headless:false
 		const browser = await puppeteer.launch({
@@ -52,17 +52,19 @@ module.exports.run = function (rootDir) {
 		const suites = config.testSuite;
 
 		for (var suite in suites) {
-			var tabs = suites[suite];
-			for (var tab in tabs) {
-				promises.push(
-					runner.runTests(__dirname, browser, suites[suite][tab], config).then(
-						(batchResult) => batchResults = batchResults.concat(batchResult)
-					)
-				);
-			}
+			if (!commandResult.suite.length || (commandResult.suite.length && commandResult.suite == suite)) {
+				var tabs = suites[suite];
+				for (var tab in tabs) {
+					promises.push(
+						runner.runTests(__dirname, browser, suites[suite][tab], config).then(
+							(batchResult) => batchResults = batchResults.concat(batchResult)
+						)
+					);
+				}
 
-			// ... and wait until all finish execution
-			await Promise.all(promises);
+				// ... and wait until all finish execution
+				await Promise.all(promises);
+			}
 		}
 
 		if (config.browserConfig.closeBrowser) {
@@ -80,6 +82,6 @@ module.exports.run = function (rootDir) {
 			);
 		}
 		console.log(summary.toString());
-	})();
+	})(commandResult);
 
 };

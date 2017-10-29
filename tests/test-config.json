@@ -20,7 +20,6 @@
 		"tests/expectations/pdf-expect.js"
 	],
 	"testSuite": {
-
 		"suite1": {
 			"tab1": [
 				"${google.com}.testGoogleSearch",
@@ -38,6 +37,12 @@
 			],
 			"tab2": [
 				"${graduateland.com}.testPdfTextContent"
+			]
+		},
+
+		"devSuite": {
+			"tab1": [
+				"${google.com}.testGoogleSearch"
 			]
 		}
 	}
