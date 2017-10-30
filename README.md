@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.17](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.18](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 
 # puppa
 
@@ -64,7 +64,15 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": true
+		"closeBrowser": {
+			"onFailure": false,
+			"onSuccess": true
+		},
+		"devtools": false,
+		"closeTab": {
+			"onFailure": false,
+			"onSuccess": true
+		}
 	},
 	"globalInject": [
 		"tests/google.js",

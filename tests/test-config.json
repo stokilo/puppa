@@ -11,8 +11,15 @@
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": true,
-		"devtools": false
+		"closeBrowser": {
+			"onFailure": false,
+			"onSuccess": true
+		},
+		"devtools": false,
+		"closeTab": {
+			"onFailure": false,
+			"onSuccess": true
+		}
 	},
 	"globalInject": [
 		"tests/google.js",

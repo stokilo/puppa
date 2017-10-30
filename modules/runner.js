@@ -13,6 +13,7 @@ module.exports = {
             const page = await browser.newPage();
             page.setViewport(config.browserConfig.viewport);
 
+            var allPassed = true;
             for (var i = 0; i < testCases.length; i++) {
                 var test = testCases[i];
 
@@ -50,11 +51,22 @@ module.exports = {
                 }
 
                 // required for final reporting
+                allPassed = !testResult.passed ? false : allPassed;
                 batchResult.push({
                     "testName": test.testName,
                     "passed": testResult.passed,
                     "error": testResult.error
                 });
+            }
+
+            try {
+                // close tab dependin on the test result: https://github.com/stokilo/puppa/issues/5
+                if(allPassed && config.browserConfig.closeTab.onSuccess ||
+                   !allPassed && config.browserConfig.closeTab.onFailure) {
+                   page.close();
+                }                
+            } catch (e) {
+                console.info('Error when closing the browser tab');
             }
 
             // results from all tests running on given tab

@@ -66,14 +66,12 @@ module.exports.run = function (rootDir) {
 				await Promise.all(promises);
 			}
 		}
-
-		if (config.browserConfig.closeBrowser) {
-			await browser.close();
-		}
-
+	
 		// create final test result summary
+		var allPassed = true;
 		for (var j = 0; j < batchResults.length; j++) {
 			var singleResult = batchResults[j];
+			allPassed = !singleResult.passed ? false : allPassed;
 			summary.push(
 				[singleResult.testName,
 				singleResult.passed ? colors.green("PASSED") : colors.red("FAILED"),
@@ -82,6 +80,25 @@ module.exports.run = function (rootDir) {
 			);
 		}
 		console.log(summary.toString());
+
+		// close browser after tests depending on test results: https://github.com/stokilo/puppa/issues/6
+		if (allPassed && config.browserConfig.closeBrowser.onSuccess ||
+			!allPassed && config.browserConfig.closeBrowser.onFailure){
+			console.info('Attemp to close browser 1 second after test finished to shut down it properly.');
+			try{
+				// if you combine page.close() and browser.close() then you can end up with race condition and nasty errro
+				// https://github.com/GoogleChrome/puppeteer/issues/843
+				// workaround: delay browser closing action for 1 second
+				// await browser.close();
+				await setTimeout(function() {
+					browser.close();
+				}, 1000);
+			}catch(e) {
+				console.info('Unable to close the browser');
+			}
+			console.info('Browser closed');
+		}
+
 	})(commandResult);
 
 };

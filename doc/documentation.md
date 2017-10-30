@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.17](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
+##### Documentation for version: [v1.0.18](https://github.com/stokilo/puppa/blob/master/doc/documentation.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -44,8 +44,15 @@ File test-config.json contains description of test environment and test suite. E
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": true,
-		"devtools": false
+		"closeBrowser": {
+			"onFailure": false,
+			"onSuccess": true
+		},
+		"devtools": false,
+		"closeTab": {
+			"onFailure": false,
+			"onSuccess": true
+		}
 	},
 	"globalInject": [
 		"tests/google.js",
@@ -104,9 +111,13 @@ File test-config.json contains description of test environment and test suite. E
   - `timeout`<[number]> timeout in ms if puppeteer browser won't launch
   - `headless`<[boolean]> should puppeteer browser run in headless mode?
   - `dumpio`<[boolean]> should puppeteer browser pump out/err into your stdout/stderr? 
-  - `closeBrowser`<[boolean]> should puppa close puppeteer browser after test run ? It does not matter if tests failed or passed. If you set this to false 
-  and combine with headless = false then you have an option to inspect open pages using dev tools (see console log, network activity etc).
+  - `closeBrowser`<[object]> should puppa close browser after test run depending on test result, combine it with headless = false then you have an option to inspect open pages using dev tools (see console log, network activity etc). See also @closeTab
+    - `onFailure`<[boolean]> in case at least one test failed, if true then close browser, otherwise browser remains open
+	- `onSuccess`<[boolean]> in case all tests passed, if true then close browser, otherwise browser remains open  
   - `devtools`<[boolean]> should dev tools should be open on test run? 
+  - `closeTab`<[object]> should puppa close tab after all tests assigned to it are finished (regardless of result)
+    - `onFailure`<[boolean]> in case at least one test failed on the tab, if true then close tab, otherwise tab remains open
+	- `onSuccess`<[boolean]> in case all tests passed on the tab, if true then close tab, otherwise tab remains open
 - `globalInject`<[array]> array of javascript files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated
 with scripts on runtime. Reason why scripts must be defined is to give developer flexibility to resolve library conflicts.
 - `testSuite` <[object]> list of test suites, each suite is executed sequentially
