@@ -22,7 +22,7 @@ module.exports = {
             "profile": "",
             "suite": "",
 
-            "rootDir" : "",
+            "rootDir": "",
             "testDirName": "",
             "testDirPath": "",
             "testConfigPath": ""
@@ -67,13 +67,22 @@ module.exports = {
      * Terminate process in case of incorrect configuration.
      * Output success or error message.
      */
-    validateProcessCommandResult: function(commandResult) {
+    validateProcessCommandResult: function (commandResult) {
         if (!commandResult.success) {
             console.info(commandResult.errorMessage);
             process.exit(1);
         } else {
             console.info("Running tests from directory: " + commandResult.testDirName);
         }
+    },
+
+    /**
+     * Convert milisecond into mm:ss format
+     */
+    millisToMinutesAndSeconds: function (millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
 };

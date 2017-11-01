@@ -22,7 +22,7 @@ module.exports.run = function (rootDir) {
 
 	// test case summary
 	var summary = new Table({
-		head: ['Test name', 'Result', 'Error details']
+		head: ['Test name', 'Result', 'Error details', 'Execution time']
 	});
 
 	(async (commandResult) => {
@@ -69,16 +69,20 @@ module.exports.run = function (rootDir) {
 	
 		// create final test result summary
 		var allPassed = true;
+		var total = 0;
 		for (var j = 0; j < batchResults.length; j++) {
 			var singleResult = batchResults[j];
 			allPassed = !singleResult.passed ? false : allPassed;
+			total = total + singleResult.executionTime;
 			summary.push(
 				[singleResult.testName,
 				singleResult.passed ? colors.green("PASSED") : colors.red("FAILED"),
-				!singleResult.passed ? singleResult.error : ""
+				!singleResult.passed ? singleResult.error : "",
+				cli.millisToMinutesAndSeconds(singleResult.executionTime) + ' (mm:ss)'
 				]
 			);
 		}
+		summary.push(["", "", "", "Total: " + cli.millisToMinutesAndSeconds(total) + ' (mm:ss)']);
 		console.log(summary.toString());
 
 		// close browser after tests depending on test results: https://github.com/stokilo/puppa/issues/6

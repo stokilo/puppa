@@ -55,7 +55,8 @@ module.exports = {
                 batchResult.push({
                     "testName": test.testName,
                     "passed": testResult.passed,
-                    "error": testResult.error
+                    "error": testResult.error,
+                    "executionTime": testResult.executionTime
                 });
             }
 
