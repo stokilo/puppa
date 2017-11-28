@@ -26,7 +26,8 @@ module.exports.run = function (rootDir) {
 	});
 
 	(async (commandResult) => {
-		console.time("Execution time: ");
+		var executionBefore = Date.now();
+
 		// note: headless chrome won"t support extensions so tests against protected sites require headless:false
 		const browser = await puppeteer.launch({
 			args: [
@@ -83,9 +84,11 @@ module.exports.run = function (rootDir) {
 			);
 		}
 		
-		summary.push(["", "", "", "Total: " + cli.millisToMinutesAndSeconds(total) + ' (mm:ss)']);
+		var executionAfter = Date.now();
+		var totalAllTabs = executionAfter - executionBefore;
+		summary.push(["", "", "", "Execution time   (sum): " + cli.millisToMinutesAndSeconds(total) + ' (mm:ss)']);
+		summary.push(["", "", "", "Execution time (total): " + cli.millisToMinutesAndSeconds(totalAllTabs) + ' (mm:ss)']);
 		console.log(summary.toString());
-		console.timeEnd("Execution time: ");
 
 		// close browser after tests depending on test results: https://github.com/stokilo/puppa/issues/6
 		if (allPassed && config.browserConfig.closeBrowser.onSuccess ||
