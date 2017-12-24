@@ -26,7 +26,15 @@ module.exports = {
                     "timeout": 50000,
                     "headless": true,
                     "dumpio": false,
-                    "closeBrowser": true
+                    "closeBrowser": {
+                        "onFailure": false,
+                        "onSuccess": true
+                    },
+                    "devtools": false,
+                    "closeTab": {
+                        "onFailure": false,
+                        "onSuccess": true
+                    }
                 },
                 "globalInject": [],
                 "testSuite": {
@@ -63,9 +71,32 @@ module.exports = {
         if ("browserConfig" in userConfiguration) {
             Object.assign(testConfiguration.configuration.browserConfig, userConfiguration.browserConfig);
         }
+        // 3.1 Handle command line -h argument (overrule headless mode)
+        if (commandParameters.headless.length) {
+            if(commandParameters.headless === "true") {
+                testConfiguration.configuration.browserConfig.headless = true;
+            } else if(commandParameters.headless === "false") {
+                testConfiguration.configuration.browserConfig.headless = false;
+            }
+        }
+
         // 4. browser configuration from profile overwrites both: initial configuration and test configuration from the file
         if ("browserConfig" in profileConfiguration) {
             Object.assign(testConfiguration.configuration.browserConfig, profileConfiguration.browserConfig);
+        }
+        // 4.1 Handle comman line -c argument (overrule close behavior for tabs and windows)
+        if (commandParameters.closePolicy.length) {
+            if (commandParameters.closePolicy === "true") {
+                testConfiguration.configuration.browserConfig.closeBrowser.onFailure = true;
+                testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = true;
+                testConfiguration.configuration.browserConfig.closeTab.onFailure = true;
+                testConfiguration.configuration.browserConfig.closeTab.onSuccess = true;
+            } else if (commandParameters.closePolicy === "false") {
+                testConfiguration.configuration.browserConfig.closeBrowser.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = false;
+                testConfiguration.configuration.browserConfig.closeTab.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeTab.onSuccess = false;
+            }
         }
 
         // 5. global inject js

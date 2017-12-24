@@ -21,6 +21,8 @@ module.exports = {
 
             "profile": "",
             "suite": "",
+            "headless": "",
+            "closePolicy": "",
 
             "rootDir": "",
             "testDirName": "",
@@ -43,6 +45,18 @@ module.exports = {
         // define test suite to run, to run tests only from 'dev' suite: node index.js tests --s=dev
         if ("s" in argv && argv.s.length) {
             result.suite = argv.s;
+        }
+
+        // overrule headless parameter from test-config.json  -h=true (headless) or -h=false then show browser window
+        if ("h" in argv && argv.h.length) {
+            result.headless = argv.h;
+        }
+
+        // overrule tabs and browser window close property,
+        // -c=true  close all tabs and windows regardless of test result
+        // -c=false all tabs and windows open regardless of test result
+        if ("c" in argv && argv.c.length) {
+            result.closePolicy = argv.c;
         }
 
         result.rootDir = rootDir;

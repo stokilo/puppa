@@ -54,6 +54,13 @@ module.exports.run = function (rootDir) {
 
 		for (var suite in suites) {
 			if (!commandResult.suite.length || (commandResult.suite.length && commandResult.suite == suite)) {
+
+				// ignore suite with name 'dev' when running all tests
+				// allow to run it only when provided as custom suite in -s=dev command line parameter
+				if(suite === "dev" && commandResult.suite !== "dev") {
+				   continue;
+				}
+
 				var tabs = suites[suite];
 				for (var tab in tabs) {
 					promises.push(
