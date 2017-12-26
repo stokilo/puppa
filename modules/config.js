@@ -86,15 +86,25 @@ module.exports = {
         }
         // 4.1 Handle comman line -c argument (overrule close behavior for tabs and windows)
         if (commandParameters.closePolicy.length) {
-            if (commandParameters.closePolicy === "true") {
+            if (commandParameters.closePolicy === "all") {
                 testConfiguration.configuration.browserConfig.closeBrowser.onFailure = true;
                 testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = true;
                 testConfiguration.configuration.browserConfig.closeTab.onFailure = true;
                 testConfiguration.configuration.browserConfig.closeTab.onSuccess = true;
-            } else if (commandParameters.closePolicy === "false") {
+            } else if (commandParameters.closePolicy === "none") {
                 testConfiguration.configuration.browserConfig.closeBrowser.onFailure = false;
                 testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = false;
                 testConfiguration.configuration.browserConfig.closeTab.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeTab.onSuccess = false;
+            } else if (commandParameters.closePolicy === "passed") {
+                testConfiguration.configuration.browserConfig.closeBrowser.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = true;
+                testConfiguration.configuration.browserConfig.closeTab.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeTab.onSuccess = true;
+            } else if (commandParameters.closePolicy === "failed") {
+                testConfiguration.configuration.browserConfig.closeBrowser.onFailure = false;
+                testConfiguration.configuration.browserConfig.closeBrowser.onSuccess = false;
+                testConfiguration.configuration.browserConfig.closeTab.onFailure = true;
                 testConfiguration.configuration.browserConfig.closeTab.onSuccess = false;
             }
         }
@@ -113,6 +123,8 @@ module.exports = {
                         var userTab = tabs[tab];
                         var finalUserTab = [];
                         for (var i = 0; i < userTab.length; i++) {
+                            //save original test name for future use
+                            var originalTestName = userTab[i];
                             //perform substitution 
                             for (var placeholder in profileConfiguration.placeholders) {
                                 if (profileConfiguration.placeholders.hasOwnProperty(placeholder)) {
@@ -127,7 +139,8 @@ module.exports = {
 
                             finalUserTab[i] = {
                                 "url": testUrl,
-                                "testName": testName
+                                "testName": testName,
+                                "originalTestName": originalTestName
                             }
                         }
                         if(!(suite in testConfiguration.configuration.testSuite)) {

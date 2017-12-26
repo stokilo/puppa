@@ -27,7 +27,9 @@ module.exports = {
             "rootDir": "",
             "testDirName": "",
             "testDirPath": "",
-            "testConfigPath": ""
+            "testConfigPath": "",
+
+            "mode": ""
         };
 
         // command line arguments processing
@@ -47,14 +49,21 @@ module.exports = {
             result.suite = argv.s;
         }
 
+        // define test run mode -m=session (start testing session, every failed test will be copied into new 'session' test suite for rerun)
+        if ("m" in argv && argv.m.length) {
+            result.mode = argv.m;
+        }
+
         // overrule headless parameter from test-config.json  -h=true (headless) or -h=false then show browser window
         if ("h" in argv && argv.h.length) {
             result.headless = argv.h;
         }
 
         // overrule tabs and browser window close property,
-        // -c=true  close all tabs and windows regardless of test result
-        // -c=false all tabs and windows open regardless of test result
+        // -c=all  close all tabs and windows regardless of test result
+        // -c=none all tabs and windows open regardless of test result
+        // -c=failed close only failed tabs
+        // -c=passed close only passed tabs
         if ("c" in argv && argv.c.length) {
             result.closePolicy = argv.c;
         }

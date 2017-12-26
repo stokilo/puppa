@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.27](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.28](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -115,7 +115,7 @@ File test-config.json contains description of test environment and test suite. E
     - `onFailure`<[boolean]> in case at least one test failed, if true then close browser, otherwise browser remains open
 	- `onSuccess`<[boolean]> in case all tests passed, if true then close browser, otherwise browser remains open  
   - `devtools`<[boolean]> should dev tools should be open on test run? 
-  - `closeTab`<[object]> should puppa close tab after all tests assigned to it are finished (regardless of result), can be overruled with command line parameter -c=true (close always) or -c=false (never close) (affected window close behavior too).
+  - `closeTab`<[object]> should puppa close tab after all tests assigned to it are finished (regardless of result), can be overruled with command line parameter -c=all (close always), -c=none (never close) or c=passed (close only passed) -c=failed (close only failed) (affected window close behavior too).
     - `onFailure`<[boolean]> in case at least one test failed on the tab, if true then close tab, otherwise tab remains open
 	- `onSuccess`<[boolean]> in case all tests passed on the tab, if true then close tab, otherwise tab remains open
 - `globalInject`<[array]> array of javascript files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated
@@ -124,6 +124,7 @@ with scripts on runtime. Reason why scripts must be defined is to give developer
   - `suite1` <[object]> groups of test that will run in parallel on defined tabs. To run only single test suite you can pass parameter to runner as following `node run.js tests -s=suiteName`. Suite with name 'dev' is by default disabled when there is no explicitly provided in command line parameter: -s=dev .
     - `any name` <[object]> object with tabs and tests assigned to them. Each test is defined in format
     `url.testFunctionName` i.e. `${google.com}.testGoogleSearch`. Support for placeholder from profile is implemented, in this example  `${google.com}.testGoogleSearch` will be resolved to `https://google.com.testGoogleSearch`. Tab names must be unique, they should be valid javascript object key.
+    If tests are executed with following parameter: -m=session then all failed testcases will be grouped under test-config.json/testSuite.session.tab1[] that you can rerun them with -s=session parameter.
  
 
  

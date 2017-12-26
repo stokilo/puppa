@@ -54,6 +54,7 @@ module.exports = {
                 allPassed = !testResult.passed ? false : allPassed;
                 batchResult.push({
                     "testName": test.testName,
+                    "originalTestName": test.originalTestName,
                     "passed": testResult.passed,
                     "error": testResult.error,
                     "executionTime": testResult.executionTime

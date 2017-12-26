@@ -6,6 +6,7 @@ const cli = require("./modules/cli.js");
 const configParser = require("./modules/config.js");
 const runner = require("./modules/runner.js");
 const Table = require('cli-table');
+const jsonfile = require('jsonfile');
 
 module.exports.run = function (rootDir) {
 
@@ -14,6 +15,8 @@ module.exports.run = function (rootDir) {
 	cli.validateProcessCommandResult(commandResult);
 
 	// load configuration for defined test suite and merge with the selected user profile settings
+    const userConfiguration = JSON.parse(fs.readFileSync(commandResult.testConfigPath, "utf8"));
+
 	var testConfiguration = configParser.parseConfiguration(rootDir, commandResult);
 	configParser.validateTestConfiguration(testConfiguration);
 
@@ -77,11 +80,21 @@ module.exports.run = function (rootDir) {
 	
 		// create final test result summary
 		var allPassed = true;
-		var total = 0;		
+		var total = 0;
+
+		//create 'session' suite with failed test cases
+        if(commandResult.mode === "session"){
+           userConfiguration.testSuite.session = {"tab1": []};
+        }
 		for (var j = 0; j < batchResults.length; j++) {
 			var singleResult = batchResults[j];
 			allPassed = !singleResult.passed ? false : allPassed;
 			total = total + singleResult.executionTime;
+
+			// record failed test cases under special test suite with name 'session'
+            if(commandResult.mode === "session" && !singleResult.passed){
+               userConfiguration.testSuite.session.tab1.push(singleResult.originalTestName);
+            }
 			summary.push(
 				[singleResult.testName,
 				singleResult.passed ? colors.green("PASSED") : colors.red("FAILED"),
@@ -96,6 +109,11 @@ module.exports.run = function (rootDir) {
 		summary.push(["", "", "", "Execution time   (sum): " + cli.millisToMinutesAndSeconds(total) + ' (mm:ss)']);
 		summary.push(["", "", "", "Execution time (total): " + cli.millisToMinutesAndSeconds(totalAllTabs) + ' (mm:ss)']);
 		console.log(summary.toString());
+
+		//overwrite test config with session test suite
+        if(commandResult.mode === "session") {
+           jsonfile.writeFileSync(commandResult.testConfigPath, userConfiguration, {spaces: 4});
+        }
 
 		// close browser after tests depending on test results: https://github.com/stokilo/puppa/issues/6
 		if (allPassed && config.browserConfig.closeBrowser.onSuccess ||
