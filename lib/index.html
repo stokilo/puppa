@@ -43,14 +43,18 @@
                 'bg':'#fafafa'
             });
             //jquery UI dialog
-            $("#debug").dialog();
+            $("#debug").dialog({
+                height: 300,
+                width: 700,
+                position: { my: "left top", at: "left top"}
+            });
         })
 
     </script>
 </head>
 
 <body>
-    <div id="debug" title="Console">
+    <div id="debug" title="Console" >
         <p>Test commands:</p>
     </div>
     <iframe name="contentFrame" id="contentId" class="fullscreen" src="" ></iframe>
