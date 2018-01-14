@@ -16,12 +16,17 @@
             left: 0;
         }
     </style>
+
+    <link rel="stylesheet" href="ext/css/jquery-ui.min.css">
     <script src="ext/jquery-3.2.1.min.js"></script>
     <script src="ext/jquery-expect.js"></script>
+    <script src="ext/jquery-ui.min.js"></script>
+    <script src="ext/jquery.console.js"></script>
     <script src="ext/pdf.js"></script>
     <script src="core/puppa.js"></script>
     <script type="text/javascript">
-    
+        let jq_logger = '';
+
         function qs(key) {
             key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
             var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
@@ -30,11 +35,24 @@
 
         $(document).ready(function () {
             $('#contentId').attr('src', qs('url'));
+            //logger to append to dialog with console
+            jq_logger = new Console({
+                'element':'#debug',
+                'width':400,
+                'height':300,
+                'bg':'#fafafa'
+            });
+            //jquery UI dialog
+            $("#debug").dialog();
         })
+
     </script>
 </head>
 
 <body>
+    <div id="debug" title="Console">
+        <p>Test commands</p>
+    </div>
     <iframe name="contentFrame" id="contentId" class="fullscreen" src="" ></iframe>
 </body>
 
