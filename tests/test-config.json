@@ -10,12 +10,12 @@
 		},
 		"timeout": 60000,
 		"headless": false,
-		"dumpio": false,
+		"dumpio": true,
 		"closeBrowser": {
 			"onFailure": false,
 			"onSuccess": true
 		},
-		"devtools": false,
+		"devtools": true,
 		"closeTab": {
 			"onFailure": false,
 			"onSuccess": true

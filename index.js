@@ -36,6 +36,7 @@ module.exports.run = function (rootDir) {
 			args: [
 				config.chromeConfig.flags,
 				"--disable-web-security",
+                '--disable-extensions-except=' + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
 				"--load-extension=" + __dirname + path.sep + "lib" + path.sep + "ignore-headers",
 				"--no-first-run"],
 			headless: config.browserConfig.headless,

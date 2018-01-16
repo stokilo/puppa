@@ -21,12 +21,11 @@ module.exports = {
                 console.info(colors.blue("Running: " + test.url + ":" + test.testName));
                 var contentHtmlFile = "file:///" + parentDir + "/lib/index.html?url=" + encodeURIComponent(test.url);
                 console.info(colors.inverse("Open page: " + test.url));
-                await page.goto(contentHtmlFile);
+                await page.goto(contentHtmlFile, {"timeout": 60000, "waitUntil": "domcontentloaded"});
 
                 // inject js that should persist navigation
                 for (fileName of config.globalInject) {
-                    await page.injectFile(fileName);
-                    //console.info("Global file inject: " + fileName);
+                    await page.addScriptTag( {"path": fileName});
                 }
 
                 // inject configuration into the window
