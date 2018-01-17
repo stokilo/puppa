@@ -4,6 +4,8 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const colors = require("colors/safe");
+const esprima = require("esprima");
+const estraverse = require("estraverse");
 
 module.exports = {
 
@@ -25,7 +27,38 @@ module.exports = {
 
                 // inject js that should persist navigation
                 for (fileName of config.globalInject) {
-                    await page.addScriptTag( {"path": fileName});
+                    // read test file
+                    let file = fs.readFileSync(fileName, "utf8");
+                    // parse script with option to return locations of detected elements
+                    let parsed = esprima.parseScript(file, {range: false, loc: true, comment: false});
+                    // traverse all nodes and declarations and expression
+                    let locations = [];
+                    estraverse.traverse(parsed, {
+                        enter: function(node, parent) {
+                            if (node.type === 'AwaitExpression' ||
+                                node.type === 'VariableDeclaration' ||
+                                node.type === 'ExpressionStatement') {
+                               locations.push(node.loc);
+                            }
+                        }
+                    });
+                    // Instrument a function to log test calls
+                    let split = file.split("\n");
+                    let changedLines = [];
+                    for (let i = 0; i < locations.length; i++) {
+                        let start = locations[i].start.line - 1;
+                        if (changedLines.indexOf(start) <= -1) {
+                            let codeLineEscaped = split[start].replace(/"/g, '\\"');
+                            split[start] = "log2console(\"" + codeLineEscaped+ "\");" + " " + split[start];
+                            changedLines.push(start);
+                        }
+                    }
+                    // Final test script
+                    let scriptContent = split.join("\n");
+                    await page.addScriptTag( {"content": scriptContent});
+
+                    //fs.writeFileSync("./test.js", scriptContent);
+                    //fs.writeFileSync("./tree.json", JSON.stringify(parsed));
                 }
 
                 // inject configuration into the window

@@ -1,6 +1,6 @@
 {
   "name": "puppa",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,9 @@
   "dependencies": {
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
+    "escodegen": "^1.9.0",
+    "esprima": "^4.0.0",
+    "estraverse": "^4.2.0",
     "jsonfile": "^4.0.0",
     "minimist": "^1.2.0",
     "parent-module": "^0.1.0",

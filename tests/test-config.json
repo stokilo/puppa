@@ -5,20 +5,20 @@
 	},
 	"browserConfig": {
 		"viewport": {
-			"width": 1280,
-			"height": 1024
+			"width": 1680,
+			"height": 1280
 		},
 		"timeout": 60000,
-		"headless": false,
-		"dumpio": true,
+		"headless": true,
+		"dumpio": false,
 		"closeBrowser": {
 			"onFailure": false,
-			"onSuccess": true
+			"onSuccess": false
 		},
 		"devtools": true,
 		"closeTab": {
 			"onFailure": false,
-			"onSuccess": true
+			"onSuccess": false
 		}
 	},
 	"globalInject": [
