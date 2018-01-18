@@ -22,9 +22,9 @@
 		}
 	},
 	"globalInject": [
-		"tests/google.js",
-		"tests/pdf-test.js",
-		"tests/expectations/pdf-expect.js"
+		{"file": "tests/google.js", "instrumented": true},
+		{"file": "tests/pdf-test.js", "instrumented": true},
+		{"file": "tests/expectations/pdf-expect.js", "instrumented": false}
 	],
 	"testSuite": {
 		"suite1": {

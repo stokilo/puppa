@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.36](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.37](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 
 # puppa
 
@@ -75,9 +75,9 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 		}
 	},
 	"globalInject": [
-		"tests/google.js",
-		"tests/pdf-test.js",
-		"tests/expectations/pdf-expect.js"
+		{"file": "tests/google.js", "instrumented": true},
+        {"file": "tests/pdf-test.js", "instrumented": true},
+        {"file": "tests/expectations/pdf-expect.js", "instrumented": false}
 	],
 	"testSuite": {
 

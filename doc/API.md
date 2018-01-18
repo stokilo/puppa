@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.36](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.37](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -55,9 +55,9 @@ File test-config.json contains description of test environment and test suite. E
 		}
 	},
 	"globalInject": [
-		"tests/google.js",
-		"tests/pdf-test.js",
-		"tests/expectations/pdf-expect.js"
+		{"file": "tests/google.js", "instrumented": true},
+        {"file": "tests/pdf-test.js", "instrumented": true},
+        {"file": "tests/expectations/pdf-expect.js", "instrumented": false}
 	],
 	"testSuite": {
 
@@ -118,7 +118,9 @@ File test-config.json contains description of test environment and test suite. E
   - `closeTab`<[object]> should puppa close tab after all tests assigned to it are finished (regardless of result), can be overruled with command line parameter -c=all (close always), -c=none (never close) or c=passed (close only passed) -c=failed (close only failed) (affected window close behavior too).
     - `onFailure`<[boolean]> in case at least one test failed on the tab, if true then close tab, otherwise tab remains open
 	- `onSuccess`<[boolean]> in case all tests passed on the tab, if true then close tab, otherwise tab remains open
-- `globalInject`<[array]> array of javascript files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated
+- `globalInject`<[array[object]]> array of javascript objects that define files that should be injected into test page. Puppa define top page that contains an IFRAME and all scripts defined in `globalInject`. So each page you test are wrapped into the IFRAME decorated.
+    - `file`<[string]> file path relative to the root dir.
+    - `instrumented`<[boolean]> if set to true then javascript test functions will be instrumented in the way that you can see each executed line in built in console. This is for tracking test progress.
 with scripts on runtime. Reason why scripts must be defined is to give developer flexibility to resolve library conflicts.
 - `testSuite` <[object]> list of test suites, each suite is executed sequentially
   - `suite1` <[object]> groups of test that will run in parallel on defined tabs. To run only single test suite you can pass parameter to runner as following `node run.js tests -s=suiteName`. Suite with name 'dev' is by default disabled when there is no explicitly provided in command line parameter: -s=dev .
