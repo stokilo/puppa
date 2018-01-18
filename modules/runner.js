@@ -13,12 +13,11 @@ module.exports = {
     runTests: function (parentDir, browser, testCases, config) {
         let batchResult = [];
         return (async () => {
-            const page = await browser.newPage();
-            page.setViewport(config.browserConfig.viewport);
-
             let allPassed = true;
             for (let i = 0; i < testCases.length; i++) {
                 let test = testCases[i];
+                let page = await browser.newPage();
+                page.setViewport(config.browserConfig.viewport);
 
                 // open page with iframe and load page defined in test case
                 console.info(colors.blue("Running: " + test.url + ":" + test.testName));
@@ -113,18 +112,17 @@ module.exports = {
                     "error": testResult.error,
                     "executionTime": testResult.executionTime
                 });
-            }
 
-            try {
-                // close tab dependin on the test result: https://github.com/stokilo/puppa/issues/5
-                if(allPassed && config.browserConfig.closeTab.onSuccess ||
-                   !allPassed && config.browserConfig.closeTab.onFailure) {
-                   page.close();
-                }                
-            } catch (e) {
-                console.info('Error when closing the browser tab');
+                try {
+                    // close tab dependin on the test result: https://github.com/stokilo/puppa/issues/5
+                    if(allPassed && config.browserConfig.closeTab.onSuccess ||
+                        !allPassed && config.browserConfig.closeTab.onFailure) {
+                        page.close();
+                    }
+                } catch (e) {
+                    console.info('Error when closing the browser tab');
+                }
             }
-
             // results from all tests running on given tab
             return batchResult;
         })();
