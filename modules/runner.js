@@ -11,20 +11,26 @@ const estraverse = require("estraverse");
 module.exports = {
 
     runTests: function (parentDir, browser, testCases, config) {
-        var batchResult = [];
+        let batchResult = [];
         return (async () => {
             const page = await browser.newPage();
             page.setViewport(config.browserConfig.viewport);
 
-            var allPassed = true;
-            for (var i = 0; i < testCases.length; i++) {
-                var test = testCases[i];
+            let allPassed = true;
+            for (let i = 0; i < testCases.length; i++) {
+                let test = testCases[i];
 
                 // open page with iframe and load page defined in test case
                 console.info(colors.blue("Running: " + test.url + ":" + test.testName));
-                var contentHtmlFile = "file:///" + parentDir + "/lib/index.html?url=" + encodeURIComponent(test.url);
+                let contentHtmlFile = "file:///" + parentDir + "/lib/index.html?url=" + encodeURIComponent(test.url);
                 console.info(colors.inverse("Open page: " + test.url));
-                await page.goto(contentHtmlFile, {"timeout": 60000, "waitUntil": "domcontentloaded"});
+                let pageLoaded = false;
+                try {
+                  await page.goto(contentHtmlFile, {"timeout": config.browserConfig.timeout, "waitUntil": "domcontentloaded"});
+                  pageLoaded = true;
+                } catch(loadError) {
+                    console.info("Unable to load page (timeout): " + test.url);
+                }
 
                 // inject js that should persist navigation
                 for (fileProperties of config.globalInject) {
@@ -69,26 +75,31 @@ module.exports = {
                     } else {
                         await page.addScriptTag( {"content": file});
                     }
-
                 }
 
                 // inject configuration into the window
-                var testConfig = Object.assign({}, config.profileConfig);
+                let testConfig = Object.assign({}, config.profileConfig);
                 testConfig.testName = test.testName;
                 await page.evaluate("window.$$$config = '" + JSON.stringify(testConfig) + "'");
 
                 // run the test
-                await page.evaluate(async () => { return runTest(); });
-                const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
-                    { interval: 1000, timeout: config.browserConfig.timeout });
-                await watchDog;
+                if (pageLoaded) {
+                    await page.evaluate(async () => {
+                        return runTest();
+                    });
+                    const watchDog = page.waitForFunction("window.$$$result.isRunning == false",
+                        {interval: 1000, timeout: config.browserConfig.timeout});
+                    await watchDog;
+                }
 
                 // output result
-                var testResult = await page.evaluate("window.$$$result");
-                var resultMessage = testResult.passed ?
+                let testResult = pageLoaded ? await page.evaluate("window.$$$result")
+                                            : {"passed": false, "error": "Page loading timeout", "executionTime": config.browserConfig.timeout};
+                let resultMessage = testResult.passed ?
                     colors.green.underline("Passed") :
                     colors.red.underline("Failed");
                 console.info(colors.blue("Result: " + test.url + ":" + test.testName) + ": " + resultMessage);
+
                 if (!testResult.passed) {
                     console.log("        " + colors.red.inverse(testResult.error));
                 }
