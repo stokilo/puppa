@@ -1,21 +1,21 @@
 {
 	"profile": "dev-profile.json",
 	"chromeConfig":{
-		"flags": "--window-size=1280,720"
+		"flags": "--window-size=1680,1050"
 	},
 	"browserConfig": {
 		"viewport": {
 			"width": 1680,
-			"height": 1280
+			"height": 1050
 		},
 		"timeout": 60000,
-		"headless": true,
+		"headless": false,
 		"dumpio": false,
 		"closeBrowser": {
 			"onFailure": false,
 			"onSuccess": false
 		},
-		"devtools": true,
+		"devtools": false,
 		"closeTab": {
 			"onFailure": false,
 			"onSuccess": false
