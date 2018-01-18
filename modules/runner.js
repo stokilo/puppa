@@ -23,7 +23,7 @@ module.exports = {
                 // open page with iframe and load page defined in test case
                 console.info(colors.blue("Running: " + test.url + ":" + test.testName));
                 let contentHtmlFile = "file:///" + parentDir + "/lib/index.html?url=" + encodeURIComponent(test.url);
-                console.info(colors.inverse("Open page: " + test.url));
+                //console.info(colors.inverse("Open page: " + test.url));
                 let pageLoaded = false;
                 try {
                   await page.goto(contentHtmlFile, {"timeout": config.browserConfig.timeout, "waitUntil": "domcontentloaded"});

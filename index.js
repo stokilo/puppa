@@ -121,7 +121,7 @@ module.exports.run = function (rootDir) {
 			!allPassed && config.browserConfig.closeBrowser.onFailure){
 			console.info('Attemp to close browser 1 second after test finished to shut down it properly.');
 			try{
-				// if you combine page.close() and browser.close() then you can end up with race condition and nasty errro
+				// if you combine page.close() and browser.close() then you can end up with race condition and nasty error
 				// https://github.com/GoogleChrome/puppeteer/issues/843
 				// workaround: delay browser closing action for 1 second
 				// await browser.close();
