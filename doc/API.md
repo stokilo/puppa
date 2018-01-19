@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.39](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.40](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -44,10 +44,6 @@ File test-config.json contains description of test environment and test suite. E
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": {
-			"onFailure": false,
-			"onSuccess": true
-		},
 		"devtools": false,
 		"closeTab": {
 			"onFailure": false,
@@ -110,8 +106,7 @@ File test-config.json contains description of test environment and test suite. E
     - `height`<[number]> viewport height (note: if you want define browser window size use chromeConfig.flags {"flags": "--window-size=1280,720"})
   - `timeout`<[number]> timeout in ms if puppeteer browser won't launch
   - `headless`<[boolean]> should puppeteer browser run in headless mode? Can be overrules from command line parameter as -h=false or -h=true
-  - `dumpio`<[boolean]> should puppeteer browser pump out/err into your stdout/stderr? 
-  - `closeBrowser`<[object]> should puppa close browser after test run depending on test result, combine it with headless = false then you have an option to inspect open pages using dev tools (see console log, network activity etc). See also @closeTab. can be overruled with command line parameter -c=true (close always) or -c=false (never close) (affected tabs close behavior too).
+  - `dumpio`<[boolean]> should puppeteer browser pump out/err into your stdout/stderr?
     - `onFailure`<[boolean]> in case at least one test failed, if true then close browser, otherwise browser remains open
 	- `onSuccess`<[boolean]> in case all tests passed, if true then close browser, otherwise browser remains open  
   - `devtools`<[boolean]> should dev tools should be open on test run? 

@@ -11,14 +11,10 @@
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": {
-			"onFailure": false,
-			"onSuccess": false
-		},
 		"devtools": false,
 		"closeTab": {
 			"onFailure": false,
-			"onSuccess": false
+			"onSuccess": true
 		}
 	},
 	"globalInject": [

@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.39](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.40](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 
 # puppa
 
@@ -64,10 +64,6 @@ Example test runner configuration that defines parallel test execution on 2 tabs
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"closeBrowser": {
-			"onFailure": false,
-			"onSuccess": true
-		},
 		"devtools": false,
 		"closeTab": {
 			"onFailure": false,

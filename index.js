@@ -116,9 +116,8 @@ module.exports.run = function (rootDir) {
            jsonfile.writeFileSync(commandResult.testConfigPath, userConfiguration, {spaces: 4});
         }
 
-		// close browser after tests depending on test results: https://github.com/stokilo/puppa/issues/6
-		if (allPassed && config.browserConfig.closeBrowser.onSuccess ||
-			!allPassed && config.browserConfig.closeBrowser.onFailure){
+		// always close browser in headless mode, leave open in non headless
+		if (config.browserConfig.headless){
 			console.info('Attemp to close browser 1 second after test finished to shut down it properly.');
 			try{
 				// if you combine page.close() and browser.close() then you can end up with race condition and nasty error
