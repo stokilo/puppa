@@ -20,7 +20,7 @@ module.exports = {
             "errorMessage": "",
 
             "profile": "",
-            "suite": "",
+            "suites": "",
             "headless": "",
             "closePolicy": "",
 
@@ -46,7 +46,7 @@ module.exports = {
 
         // define test suite to run, to run tests only from 'dev' suite: node index.js tests --s=dev
         if ("s" in argv && argv.s.length) {
-            result.suite = argv.s;
+            result.suites = argv.s.split(',');
         }
 
         // define test run mode -m=session (start testing session, every failed test will be copied into new 'session' test suite for rerun)

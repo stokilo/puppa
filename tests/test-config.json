@@ -39,6 +39,19 @@
 			]
 		},
 
+		"a": {
+			"tab3": [
+				"${wikipedia.org}.testWikiSearchUnknown"
+			]
+		},
+
+		"b": {
+			"tab1": [
+				"${google.com}.testGoogleSearch"
+			]
+		},
+
+
 		"dev": {
 			"tab1": [
 				"${wikipedia.org}.testWikiSearchBattle"

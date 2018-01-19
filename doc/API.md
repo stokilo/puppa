@@ -1,4 +1,4 @@
-##### Documentation for version: [v1.0.43](https://github.com/stokilo/puppa/blob/master/doc/API.md)
+##### Documentation for version: [v1.0.44](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 # Puppa API 
 
 ##### Table of Contents
@@ -118,7 +118,7 @@ File test-config.json contains description of test environment and test suite. E
     - `instrumented`<[boolean]> if set to true then javascript test functions will be instrumented in the way that you can see each executed line in built in console. This is for tracking test progress.
 with scripts on runtime. Reason why scripts must be defined is to give developer flexibility to resolve library conflicts.
 - `testSuite` <[object]> list of test suites, each suite is executed sequentially
-  - `suite1` <[object]> groups of test that will run in parallel on defined tabs. To run only single test suite you can pass parameter to runner as following `node run.js tests -s=suiteName`. Suite with name 'dev' is by default disabled when there is no explicitly provided in command line parameter: -s=dev .
+  - `suite1` <[object]> groups of test that will run in parallel on defined tabs. To run only single test suite you can pass parameter to runner as following `node run.js tests -s=suiteName`. To run more suites provide it as comma separated string i.e. -s=suite1,suite2 .Suite with name 'dev' is by default disabled when there is no explicitly provided in command line parameter: -s=dev .
     - `any name` <[object]> object with tabs and tests assigned to them. Each test is defined in format
     `url.testFunctionName` i.e. `${google.com}.testGoogleSearch`. Support for placeholder from profile is implemented, in this example  `${google.com}.testGoogleSearch` will be resolved to `https://google.com.testGoogleSearch`. Tab names must be unique, they should be valid javascript object key.
     If tests are executed with following parameter: -m=session then all failed testcases will be grouped under test-config.json/testSuite.session.tab1[] that you can rerun them with -s=session parameter.
