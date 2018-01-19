@@ -1,7 +1,8 @@
 {
     "placeholders": {
         "google.com": "https://google.com",
-        "graduateland.com": "https://graduateland.com/api/v2/users/jesper/cv"
+        "graduateland.com": "https://graduateland.com/api/v2/users/jesper/cv",
+        "wikipedia.org": "https://en.wikipedia.org/wiki/Main_Page"
     },
     "config": {
         "username": "test",

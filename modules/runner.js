@@ -109,7 +109,7 @@ module.exports = {
                     "testName": test.testName,
                     "originalTestName": test.originalTestName,
                     "passed": testResult.passed,
-                    "error": testResult.error,
+                    "error": typeof testResult.error === 'string' ? testResult.error : "Unknown error",
                     "executionTime": testResult.executionTime
                 });
 

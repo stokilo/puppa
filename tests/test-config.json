@@ -14,38 +14,34 @@
 		"devtools": false,
 		"closeTab": {
 			"onFailure": false,
-			"onSuccess": true
+			"onSuccess": false
 		}
 	},
 	"globalInject": [
 		{"file": "tests/google.js", "instrumented": true},
+		{"file": "tests/wikipedia.js", "instrumented": true},
 		{"file": "tests/pdf-test.js", "instrumented": true},
 		{"file": "tests/expectations/pdf-expect.js", "instrumented": false}
 	],
 	"testSuite": {
 		"suite1": {
 			"tab1": [
-				"${google.com}.testGoogleSearch",
-				"${google.com}.testGoogleSearch"
-			],
-			"tab2": [
-				"${graduateland.com}.testPdfTextContent",
-				"${graduateland.com}.testPdfTextContent"
-			]
-		},
-
-		"suite2": {
-			"tab1": [
 				"${google.com}.testGoogleSearch"
 			],
 			"tab2": [
 				"${graduateland.com}.testPdfTextContent"
+			],
+			"tab3": [
+				"${wikipedia.org}.testWikiSearchUnknown"
+			],
+			"tab4": [
+				"${wikipedia.org}.testWikiSearchBattle"
 			]
 		},
 
-		"devSuite": {
+		"dev": {
 			"tab1": [
-				"${google.com}.testGoogleSearch"
+				"${wikipedia.org}.testWikiSearchBattle"
 			]
 		}
 	}
