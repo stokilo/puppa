@@ -79,6 +79,7 @@ module.exports = {
                 // inject configuration into the window
                 let testConfig = Object.assign({}, config.profileConfig);
                 testConfig.testName = test.testName;
+                testConfig.browserConfig = config.browserConfig;
                 await page.evaluate("window.$$$config = '" + JSON.stringify(testConfig) + "'");
 
                 // run the test
