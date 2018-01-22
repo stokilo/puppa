@@ -11,7 +11,7 @@
 		"timeout": 60000,
 		"headless": false,
 		"dumpio": false,
-		"devtools": false,
+		"devtools": true,
 		"closeTab": {
 			"onFailure": false,
 			"onSuccess": false
@@ -39,23 +39,11 @@
 			]
 		},
 
-		"a": {
-			"tab3": [
-				"${wikipedia.org}.testWikiSearchUnknown"
-			]
-		},
-
-		"b": {
+		"ff": {
 			"tab1": [
 				"${google.com}.testGoogleSearch"
 			]
-		},
-
-
-		"dev": {
-			"tab1": [
-				"${wikipedia.org}.testWikiSearchBattle"
-			]
 		}
 	}
+
 }

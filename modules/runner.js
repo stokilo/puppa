@@ -7,6 +7,7 @@ const path = require("path");
 const colors = require("colors/safe");
 const esprima = require("esprima");
 const estraverse = require("estraverse");
+const delay = require('delay');
 
 module.exports = {
 
@@ -17,6 +18,8 @@ module.exports = {
             for (let i = 0; i < testCases.length; i++) {
                 let test = testCases[i];
                 let page = await browser.newPage();
+                // wait 1000 ms between pages are open
+                delay(1000).then(() => {});
                 page.setViewport(config.browserConfig.viewport);
 
                 // open page with iframe and load page defined in test case
