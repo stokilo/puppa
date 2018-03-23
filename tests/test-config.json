@@ -9,7 +9,7 @@
 			"height": 1050
 		},
 		"timeout": 60000,
-		"headless": false,
+		"headless": true,
 		"dumpio": false,
 		"devtools": true,
 		"closeTab": {
