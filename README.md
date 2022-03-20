@@ -1,3 +1,4 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
 ##### Documentation for version: [v1.0.45](https://github.com/stokilo/puppa/blob/master/doc/API.md)
 
 # puppa
